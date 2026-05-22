@@ -1301,6 +1301,7 @@ body {
         <option value="en">English</option>
         <option value="pa">ਪੰਜਾਬੀ</option>
         <option value="ha">हरयाणवी</option>
+        <option value="ur">اردو</option>
       </select>
     </label>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀</button>
@@ -1431,6 +1432,16 @@ body {
   <div style="padding: 0 14px 10px;">
     <button onclick="showScreen('more')" style="width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:12px;padding:14px;font-family:var(--hindi);font-size:15px;color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
       <span>📚</span> और जानकारी — बाकी सभी विषय ›
+    </button>
+  </div>
+
+  <!-- BOTTOM FOOTER LINKS -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 16px 16px;">
+    <button onclick="showScreen('legal')" style="background:none;border:none;font-family:var(--sans);font-size:11px;color:var(--txt3);cursor:pointer;text-decoration:underline;padding:4px 0;">
+      📄 Disclaimer · Privacy · Refund
+    </button>
+    <button onclick="showScreen('howto')" style="background:none;border:none;font-family:var(--sans);font-size:11px;color:var(--txt3);cursor:pointer;text-decoration:underline;padding:4px 0;">
+      ❓ How to Use Madhoganj
     </button>
   </div>
 </div>
@@ -1898,6 +1909,228 @@ body {
 <div class="screen" id="screen-terms">
   <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">📄 Disclaimer / Terms</div></div>
   <div class="inner-body" id="termsContent"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+   LEGAL SCREEN — Disclaimer · Privacy · Refund
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-legal">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">📄 Legal · Privacy · Refund</div>
+  </div>
+  <div class="inner-body">
+
+    <div class="alert-gold">Madhoganj v2.0 · BETA · May 2026 · Part of AAA — Artigellence Augmentation Aggregator · madhoganj.cloud</div>
+
+    <!-- DISCLAIMER -->
+    <div class="sec-lbl">Disclaimer</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.85;">
+        <strong style="color:var(--red);">⚠️ Educational Use Only / केवल शैक्षिक उपयोग</strong><br><br>
+        Madhoganj एक educational और informational platform है। सभी content — crop disease diagnosis, pesticide recommendations, weather advisories, mandi prices, government scheme information, satellite data — केवल general awareness के लिए है।<br><br>
+        यह platform professional agricultural, legal, financial, medical, या veterinary advice नहीं देता। किसी भी निर्णय से पहले अपने local KVK officer, licensed agronomist, या government agricultural department से verify करें।<br><br>
+        <strong>Madhoganj, इसके founders, developers, और AAA किसी भी crop loss, livestock loss, financial loss, या personal harm के लिए liable नहीं हैं।</strong>
+      </div>
+    </div>
+
+    <!-- DISEASE & PESTICIDE -->
+    <div class="sec-lbl">Disease & Pesticide Data</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.85;">
+        Disease identification और pesticide dosage data GBPUAT Pantnagar, ICAR, KVK sources से लिया गया है — indicative only। Incorrect application से crop damage, human health risks, और environmental harm हो सकता है।<br><br>
+        हमेशा product label पढ़ें। PHI (Pre-Harvest Interval) follow करें। Full PPE पहनें। बीमारी confirm होने पर KVK काशीपुर (05947-276501) से verify करें।
+      </div>
+    </div>
+
+    <!-- WEATHER & MANDI DATA -->
+    <div class="sec-lbl">Weather & Mandi Prices</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.85;">
+        <strong>Weather:</strong> Open-Meteo, IMD, GBPUAT से — indicative only। Actual conditions significantly vary करती हैं। Spray window decisions के लिए local conditions भी देखें।<br><br>
+        <strong>Mandi Prices:</strong> Agmarknet/eNAM public data से reference values हैं। Quality, variety, moisture, और daily demand के basis पर actual prices vary करते हैं। Selling से पहले directly mandi से confirm करें।<br><br>
+        <strong>Government Schemes:</strong> Eligibility, deadlines, और benefits frequently change होते हैं। Official portals (pmkisan.gov.in, pmfby.gov.in) पर verify करें।
+      </div>
+    </div>
+
+    <!-- PRIVACY POLICY -->
+    <div class="sec-lbl">Privacy Policy / गोपनीयता</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.85;">
+        <strong>🔒 Zero Data Sale Policy — Permanent</strong><br><br>
+        <strong>हम collect करते हैं:</strong> कुछ नहीं। कोई registration नहीं, कोई account नहीं, कोई tracking नहीं।<br><br>
+        <strong>Location:</strong> Weather localisation के लिए browser location permission — optional। कहीं store नहीं होता।<br><br>
+        <strong>WhatsApp Registration:</strong> आपका नाम, गाँव, और फसल की जानकारी केवल early access waitlist के लिए — किसी तीसरे पक्ष को नहीं दी जाती। कोई spam नहीं।<br><br>
+        <strong>Cookies:</strong> कोई tracking cookies नहीं। Dark/light mode preference locally stored।<br><br>
+        <strong>Data Sale:</strong> Madhoganj आपका कोई भी data किसी को नहीं बेचता — अभी नहीं, भविष्य में भी नहीं। यह policy permanently लिखी हुई है।<br><br>
+        DPDP Act 2023 compliant। Queries: raj@artigellence.com
+      </div>
+    </div>
+
+    <!-- REFUND POLICY -->
+    <div class="sec-lbl">Refund Policy</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.85;">
+        <strong>अभी BETA है — कोई paid feature active नहीं है।</strong><br><br>
+        जब ₹29/diagnosis या ₹499/month features live होंगे:<br><br>
+        ✅ <strong>Technical failure:</strong> अगर diagnosis deliver नहीं हुई technical error की वजह से — 24 hours में full refund।<br><br>
+        ✅ <strong>Duplicate payment:</strong> Immediately full refund।<br><br>
+        ✅ <strong>₹499/month plan:</strong> पहले 7 days में cancel करने पर full refund। उसके बाद prorated refund।<br><br>
+        ❌ <strong>Diagnosis delivered:</strong> Diagnosis deliver हो जाने पर refund नहीं — चाहे advice काम न करे (educational service है)।<br><br>
+        All UPI transactions RBI-compliant gateways के through। Refund UPI/bank में 3-5 working days।<br><br>
+        Refund request: <strong>raj@artigellence.com</strong> · WhatsApp: <strong>+61 452 308 178</strong>
+      </div>
+    </div>
+
+    <!-- TERMS OF USE -->
+    <div class="sec-lbl">Terms of Use</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.85;">
+        Madhoganj use करके आप agree करते हैं:<br><br>
+        • Content केवल personal farming decisions के लिए use करें<br>
+        • Commercial redistribution या resale prohibited<br>
+        • Platform को harm करने की कोशिश prohibited<br>
+        • User-uploaded content को AAA moderate करता है<br>
+        • Madhoganj features किसी भी time change हो सकते हैं<br>
+        • Governing law: India · Jurisdiction: Uttarakhand<br><br>
+        <span style="font-size:11px;color:var(--txt3);">Last updated: May 2026 · v2.0 · madhoganj.cloud · raj@artigellence.com</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   HOW TO USE MADHOGANJ SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-howto">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">❓ How to Use Madhoganj</div>
+  </div>
+  <div class="inner-body">
+
+    <div class="alert-green">🚀 BETA Version — हर हफ्ते नए features add होते हैं। Voice, Video, UPI जल्दी आ रहे हैं।</div>
+
+    <!-- GETTING STARTED -->
+    <div class="sec-lbl">शुरुआत कैसे करें</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        <strong style="color:var(--leaf-deep);">1. Home Screen</strong> — 6 बड़े cards। हर card एक topic। Card पर tap करें — full screen खुलेगा।<br><br>
+        <strong style="color:var(--leaf-deep);">2. वापस जाएं</strong> — हर screen पर ऊपर बायीं तरफ ← arrow है। Press करें → Home।<br><br>
+        <strong style="color:var(--leaf-deep);">3. Bottom Navigation</strong> — नीचे 5 shortcuts: Home · मौसम · भाव · Register · और।<br><br>
+        <strong style="color:var(--leaf-deep);">4. Live Weather</strong> — Home पर ऊपर temperature live load होता है। Internet चाहिए।<br><br>
+        <strong style="color:var(--leaf-deep);">5. Offline</strong> — एक बार खुलने के बाद mandi prices और advisory बिना internet के भी दिखती हैं।
+      </div>
+    </div>
+
+    <!-- 6 CARDS EXPLAINED -->
+    <div class="sec-lbl">6 Cards — क्या क्या है</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        <strong>🌤 मौसम:</strong> Live temperature, humidity, spray window (क्या आज spray कर सकते हैं?), 7-day forecast, farming advisory — कब irrigate करें, कब spray करें।<br><br>
+        <strong>₹ मंडी भाव:</strong> 25 फसलों के दाम। MSP/SAP floor bold में — आढ़तिया इससे कम नहीं दे सकता। 7-day trend।<br><br>
+        <strong>📷 फसल डॉक्टर:</strong> फसल की फोटो खींचें → WhatsApp expert को भेजें। 4 active disease alerts। KVK Kashipur links।<br><br>
+        <strong>🗺️ मेरे आस-पास:</strong> 5/10/25 km radius में पड़ोसियों की फसलें। Disease spread warnings। Satellite links।<br><br>
+        <strong>📋 सलाह:</strong> GBPUAT Pantnagar की official advisory — हर फसल के लिए। Source verified।<br><br>
+        <strong>📞 मदद:</strong> One-tap helplines — किसान call centre 1800-180-1551, KVK, पशु helpline, PMFBY।
+      </div>
+    </div>
+
+    <!-- DARK LIGHT MODE -->
+    <div class="sec-lbl">Dark / Light Mode</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        ऊपर दाहिनी तरफ <strong>☀ / 🌙 button</strong> है।<br><br>
+        <strong>☀ Light mode</strong> — दिन में खेत में use के लिए। Off-white background, आंखों पर कम strain।<br><br>
+        <strong>🌙 Dark mode</strong> — रात में या कम रोशनी में। Battery बचाता है OLED screens पर।<br><br>
+        आपकी choice browser में save रहती है।
+      </div>
+    </div>
+
+    <!-- LANGUAGE -->
+    <div class="sec-lbl">Language / भाषा</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        ऊपर <strong>हिंदी dropdown</strong> से language बदलें:<br><br>
+        🇮🇳 <strong>हिंदी</strong> — Default। 90%+ farmers के लिए।<br>
+        🇬🇧 <strong>English</strong> — For NRI farmers and researchers.<br>
+        🌾 <strong>ਪੰਜਾਬੀ</strong> — Bazpur area Punjabi settlers के लिए।<br>
+        🌿 <strong>हरयाणवी</strong> — Haryana farmers के लिए।<br>
+        📖 <strong>اردو</strong> — Urdu speakers के लिए (RTL layout)।<br><br>
+        <span style="font-size:11.5px;color:var(--txt3);">Note: BETA में main cards translate होते हैं। पूरा content translation जल्दी आ रहा है।</span>
+      </div>
+    </div>
+
+    <!-- PHOTO UPLOAD / DISEASE DOCTOR -->
+    <div class="sec-lbl">फोटो Upload — फसल डॉक्टर</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        <strong>Step 1:</strong> फसल डॉक्टर card खोलें।<br>
+        <strong>Step 2:</strong> बड़े upload area पर tap करें।<br>
+        <strong>Step 3:</strong> बीमार पत्ती, तना, या फल की photo खींचें।<br>
+        <strong>Step 4:</strong> "Expert को भेजें" button → WhatsApp खुलेगा।<br>
+        <strong>Step 5:</strong> Photo attach करके send करें → जवाब मिलेगा।<br><br>
+        <strong>Free:</strong> 7 diagnoses free। फिर ₹29/diagnosis।<br><br>
+        📌 अभी BETA — AI diagnosis जल्दी आ रहा है। अभी human expert review।
+      </div>
+    </div>
+
+    <!-- UPLOAD / COMMUNITY -->
+    <div class="sec-lbl">Community Upload / Share</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        <strong>और जानकारी → 📤 Upload / Share</strong><br><br>
+        आप share कर सकते हैं:<br>
+        🔬 Disease photo for diagnosis<br>
+        📊 Local mandi price update<br>
+        🌟 Farmer success story<br>
+        ❓ Farming question<br>
+        🌧 Weather/damage report<br><br>
+        सभी submissions AAA (Artigellence) moderate करता है। 24-48 hours में review। केवल genuine farming content।
+      </div>
+    </div>
+
+    <!-- BETA INFO -->
+    <div class="sec-lbl">BETA Version — क्या आ रहा है</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        अभी Madhoganj BETA में है। हर हफ्ते improvements होती हैं।<br><br>
+        <strong>🔜 जल्दी आ रहा है:</strong><br>
+        🎤 Voice upload — Hindi / Punjabi / Urdu / Haryanvi में बोलकर diagnosis<br>
+        🎥 30-second video diagnosis<br>
+        💳 UPI payment — PhonePe / GPay / BHIM (₹29 pay as you go)<br>
+        🗺️ Live Radar — Community crop map with real farmer data<br>
+        🌐 Full language translation — सभी 5 languages में पूरा content<br>
+        📊 Live Agmarknet API — real-time mandi prices<br><br>
+        <strong>Register करें → पहले 100 farmers को 3 free premium diagnoses।</strong><br><br>
+        WhatsApp: <strong>+61 452 308 178</strong><br>
+        Email: <strong>raj@artigellence.com</strong>
+      </div>
+    </div>
+
+    <!-- MANDI / ARTHIYA TIP -->
+    <div class="sec-lbl">मंडी में जाने से पहले — Pro Tips</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:var(--hindi);font-size:13.5px;color:var(--txt2);line-height:1.9;">
+        💡 <strong>मंडी जाने से पहले Madhoganj खोलें।</strong><br><br>
+        ✅ आज का modal price देखें — 3 मंडियों का comparison<br>
+        ✅ MSP/SAP floor note करें — आढ़तिया इससे कम offer करे तो refuse करें<br>
+        ✅ 7-day trend देखें — कल से ज़्यादा है या कम?<br>
+        ✅ अगर trend गिर रहा है — आज बेचना better है<br>
+        ✅ अगर trend बढ़ रहा है — 2-3 दिन wait करें<br><br>
+        ⚠️ आढ़तिया अगर MSP से कम offer करे: <strong>1800-270-0224 (eNAM helpline)</strong> पर complaint करें।
+      </div>
+    </div>
+
+    <div style="background:var(--card2);border-radius:10px;padding:12px 14px;font-family:var(--hindi);font-size:11.5px;color:var(--txt3);line-height:1.7;margin-top:4px;">
+      Madhoganj v2.0 · BETA · May 2026 · madhoganj.cloud<br>
+      Part of AAA — Artigellence Augmentation Aggregator<br>
+      Contact: raj@artigellence.com · +61 452 308 178
+    </div>
+
+  </div>
 </div>
 
 <!-- ═══ BOTTOM NAV ═══ -->
