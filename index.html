@@ -238,7 +238,7 @@ body {
 .ticker-inner {
   display: flex;
   white-space: nowrap;
-  animation: tickScroll 55s linear infinite;
+  animation: tickScroll 25s linear infinite;
 }
 .ticker-inner:hover { animation-play-state: paused; }
 .t-item {
@@ -1327,7 +1327,7 @@ body {
       <div>
         <div class="hws-temp" id="hws-temp">--°</div>
         <div class="hws-desc" id="hws-desc">मौसम लोड हो रहा है...</div>
-        <div class="hws-loc">📍 बाज़पुर / USN</div>
+        <div class="hws-loc" id="hws-loc">📍 बाज़पुर / USN</div>
       </div>
     </div>
     <div class="hws-right">
@@ -1422,7 +1422,7 @@ body {
       <button class="hwl-btn" onclick="event.stopPropagation(); openWaitlistWA()">
         <span>💬</span> WhatsApp पर Register करें — Free
       </button>
-      <div style="font-family:var(--sans);font-size:10px;color:rgba(255,255,255,0.85);margin-top:7px;text-align:center;">या email: raj@artigellence.com</div>
+      <div style="font-family:var(--hindi);font-size:13px;color:#fff;margin-top:10px;text-align:center;font-weight:500;">📧 या email करें: <strong>raj@artigellence.com</strong></div>
     </div>
 
   </div>
@@ -1445,7 +1445,7 @@ body {
   </div>
   <div class="inner-body">
     <div class="wx-main-card">
-      <div class="wx-city"><span class="wx-live-dot"></span> LIVE · बाज़पुर / USN · Open-Meteo</div>
+      <div class="wx-city" id="wxCity"><span class="wx-live-dot"></span> LIVE · बाज़पुर / USN · Open-Meteo</div>
       <div class="wx-big-temp" id="wxBigTemp">--°C</div>
       <div class="wx-desc" id="wxBigDesc">मौसम लोड हो रहा है...</div>
       <div class="wx-stats" id="wxStats"></div>
@@ -2177,6 +2177,8 @@ async function fetchWeather(cityKey) {
     const hIco = document.getElementById('hws-ico');
     const hSpray = document.getElementById('hws-spray');
     const hRain = document.getElementById('hws-rain');
+    const hLoc = document.getElementById('hws-loc');
+    if (hLoc) hLoc.textContent = '📍 ' + cfg.name;
     if (hTemp) hTemp.textContent = Math.round(c.temperature_2m) + '°';
     if (hDesc) hDesc.textContent = ico + ' ' + desc;
     if (hIco) hIco.textContent = ico;
@@ -2191,6 +2193,8 @@ async function fetchWeather(cityKey) {
     const wt = document.getElementById('wxBigTemp');
     const wd = document.getElementById('wxBigDesc');
     const ws = document.getElementById('wxStats');
+    const wxc = document.getElementById('wxCity');
+    if (wxc) wxc.innerHTML = '<span class="wx-live-dot"></span> LIVE · ' + cfg.name + ' · Open-Meteo';
     if (wt) wt.textContent = Math.round(c.temperature_2m) + '°C';
     if (wd) wd.textContent = ico + ' ' + desc + ' · Feels ' + Math.round(c.apparent_temperature) + '°C';
     if (ws) ws.innerHTML =
