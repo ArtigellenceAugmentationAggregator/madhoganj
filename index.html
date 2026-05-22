@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light" data-lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Madhoganj — Farm ka AI. India ka sabse smart kisan dashboard. Mausam, mandi bhav, fasal doctor, subsidies — sab ek jagah.">
+<title>Madhoganj — Farm ka AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════
+   CSS VARIABLES — LIGHT THEME (DEFAULT)
+═══════════════════════════════════════════════ */
+:root {
+  --serif:     'Yatra One', Georgia, serif;
+  --hindi:     'Noto Sans Devanagari', sans-serif;
+  --sans:      'DM Sans', sans-serif;
+
+  /* Nature palette */
+  --soil-deep:  #3E2723;
+  --soil:       #5D4037;
+  --soil-mid:   #8D6E63;
+  --soil-pale:  #D7CCC8;
+
+  --leaf-deep:  #1B5E20;
+  --leaf:       #2E7D32;
+  --leaf-mid:   #43A047;
+  --leaf-pale:  #C8E6C9;
+  --sprout:     #E8F5E9;
+
+  --wheat:      #E65100;
+  --wheat-mid:  #F57C00;
+  --wheat-pale: #FFF3E0;
+
+  --sky:        #0277BD;
+  --sky-pale:   #E1F5FE;
+
+  --red:        #C62828;
+  --red-pale:   #FFEBEE;
+
+  --gold:       #F9A825;
+  --gold-pale:  #FFFDE7;
+
+  /* Light theme surfaces */
+  --bg:         #FAFAF5;
+  --bg2:        #F0EFEA;
+  --bg3:        #E8E7E2;
+  --card:       #FFFFFF;
+  --card2:      #F5F5F0;
+
+  --txt:        #1A1A18;
+  --txt2:       #4A4A45;
+  --txt3:       #7A7A75;
+  --border:     rgba(30,30,20,0.10);
+  --border2:    rgba(30,30,20,0.18);
+  --shadow:     0 2px 12px rgba(30,30,20,0.10);
+  --shadow-lg:  0 8px 32px rgba(30,30,20,0.14);
+
+  --nav-bg:     #1B5E20;
+  --nav-txt:    #FFFFFF;
+  --ticker-bg:  #0A3D0A;
+  --ticker-txt: #A5D6A7;
+
+  --card-weather: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+  --card-price:   linear-gradient(135deg, #E65100 0%, #F57C00 100%);
+  --card-doctor:  linear-gradient(135deg, #C62828 0%, #D32F2F 100%);
+  --card-radar:   linear-gradient(135deg, #0277BD 0%, #0288D1 100%);
+  --card-advice:  linear-gradient(135deg, #F9A825 0%, #FFB300 100%);
+  --card-help:    linear-gradient(135deg, #5D4037 0%, #6D4C41 100%);
+}
+
+[data-theme="dark"] {
+  --bg:         #0F1008;
+  --bg2:        #161710;
+  --bg3:        #1E2018;
+  --card:       #1A1C14;
+  --card2:      #222418;
+
+  --txt:        #F0EFE8;
+  --txt2:       #B8B7B0;
+  --txt3:       #787870;
+  --border:     rgba(200,200,180,0.10);
+  --border2:    rgba(200,200,180,0.20);
+  --shadow:     0 2px 12px rgba(0,0,0,0.4);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.5);
+
+  --nav-bg:     #0A1208;
+  --nav-txt:    #A5D6A7;
+  --ticker-bg:  #060C05;
+  --ticker-txt: #66BB6A;
+
+  --soil-pale:  #4E342E;
+  --leaf-pale:  #1B3A1C;
+  --sprout:     #0A1F0A;
+  --wheat-pale: #1A0F00;
+  --sky-pale:   #001827;
+  --red-pale:   #200808;
+  --gold-pale:  #1A1400;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--hindi);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hindi text */
+.hi { font-family: var(--hindi); }
+.en { font-family: var(--sans); }
+.serif { font-family: var(--serif); }
+
+/* ═══════════════════════════════════════════════
+   TOP NAV
+═══════════════════════════════════════════════ */
+.top-nav {
+  background: var(--nav-bg);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-mark {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.nav-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.nav-name-primary {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: #FFFFFF;
+  letter-spacing: 0.3px;
+}
+.nav-name-sub {
+  font-family: var(--sans);
+  font-size: 9px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-btn, .theme-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.lang-btn:hover, .theme-btn:hover {
+  background: rgba(255,255,255,0.22);
+}
+.lang-btn select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 11px;
+  cursor: pointer;
+  outline: none;
+}
+.lang-btn select option { background: var(--leaf-deep); color: #fff; }
+
+/* ═══════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════ */
+.ticker {
+  background: var(--ticker-bg);
+  overflow: hidden;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(100,180,100,0.15);
+}
+.ticker-label {
+  font-family: var(--sans);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0 10px;
+  white-space: nowrap;
+  border-right: 1px solid rgba(100,180,100,0.2);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(249,168,37,0.08);
+}
+.ticker-track { overflow: hidden; flex: 1; }
+.ticker-inner {
+  display: flex;
+  white-space: nowrap;
+  animation: tickScroll 55s linear infinite;
+}
+.ticker-inner:hover { animation-play-state: paused; }
+.t-item {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--ticker-txt);
+  padding: 0 16px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-right: 1px solid rgba(100,180,100,0.1);
+  white-space: nowrap;
+}
+.t-up { color: #66BB6A; }
+.t-dn { color: #EF5350; }
+@keyframes tickScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ═══════════════════════════════════════════════
+   SCREENS
+═══════════════════════════════════════════════ */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ═══════════════════════════════════════════════
+   HOME SCREEN
+═══════════════════════════════════════════════ */
+#screen-home {
+  padding: 0 0 80px;
+}
+
+/* Live weather strip at top of home */
+.home-weather-strip {
+  background: var(--leaf-deep);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.hws-left { display: flex; align-items: center; gap: 10px; }
+.hws-ico { font-size: 28px; }
+.hws-temp {
+  font-family: var(--serif);
+  font-size: 32px;
+  color: #fff;
+  line-height: 1;
+}
+.hws-desc {
+  font-family: var(--hindi);
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+}
+.hws-loc {
+  font-family: var(--sans);
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.5px;
+}
+.hws-right { text-align: right; }
+.hws-spray {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+.spray-ok { background: rgba(255,255,255,0.2); color: #fff; }
+.spray-wait { background: rgba(239,83,80,0.3); color: #ffcdd2; }
+.hws-rain {
+  font-family: var(--hindi);
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* 6-CARD GRID */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 14px;
+}
+
+.home-card {
+  border-radius: 16px;
+  padding: 20px 16px 16px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-tap-highlight-color: transparent;
+}
+.home-card:active { transform: scale(0.97); }
+.home-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.06);
+  border-radius: inherit;
+}
+
+.hc-weather { background: var(--card-weather); }
+.hc-price   { background: var(--card-price); }
+.hc-doctor  { background: var(--card-doctor); }
+.hc-radar   { background: var(--card-radar); }
+.hc-advice  { background: var(--card-advice); }
+.hc-help    { background: var(--card-help); }
+
+.hc-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.hc-icon { font-size: 32px; line-height: 1; }
+.hc-badge {
+  font-family: var(--sans);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.9);
+  padding: 3px 7px;
+  border-radius: 3px;
+}
+.hc-bottom {}
+.hc-title {
+  font-family: var(--hindi);
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+.hc-sub {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.3px;
+}
+
+/* Waitlist card — full width */
+.hc-waitlist {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #F9A825 0%, #E65100 100%);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.hc-waitlist:active { transform: scale(0.98); }
+.hwl-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.hwl-title {
+  font-family: var(--hindi);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+.hwl-badge {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+.hwl-price {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hwl-price span {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 300;
+}
+.hwl-desc {
+  font-family: var(--hindi);
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.hwl-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fff;
+  color: #E65100;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: var(--hindi);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+}
+.hwl-btn:active { transform: scale(0.98); }
+
+/* ═══════════════════════════════════════════════
+   INNER SCREENS — COMMON STRUCTURE
+═══════════════════════════════════════════════ */
+.inner-header {
+  background: var(--nav-bg);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.back-btn {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.back-btn:hover { background: rgba(255,255,255,0.25); }
+.inner-title {
+  font-family: var(--hindi);
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+}
+.inner-body { padding: 14px; padding-bottom: 80px; }
+
+/* Section labels */
+.sec-lbl {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--leaf);
+  margin-bottom: 10px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sec-lbl::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--leaf-pale);
+  max-width: 60px;
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+}
+.card2 {
+  background: var(--card2);
+  border-radius: 10px;
+  padding: 13px 14px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+}
+
+/* Grid layouts */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.gfull { display: grid; grid-template-columns: 1fr; gap: 8px; }
+
+/* ═══════════════════════════════════════════════
+   WEATHER SCREEN
+═══════════════════════════════════════════════ */
+.wx-main-card {
+  background: linear-gradient(160deg, #1B5E20 0%, #2E7D32 60%, #388E3C 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.wx-main-card::after {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.wx-city {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wx-live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #66BB6A;
+  box-shadow: 0 0 6px #66BB6A;
+  animation: pulse 1.5s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.6;transform:scale(1.3);} }
+.wx-big-temp {
+  font-family: var(--serif);
+  font-size: 64px;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.wx-desc {
+  font-family: var(--hindi);
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+.wx-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.wx-stat {
+  background: rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+}
+.wx-stat-val { font-family: var(--sans); font-size: 18px; font-weight: 600; color: #fff; }
+.wx-stat-lbl { font-family: var(--hindi); font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+.wx-alert {
+  background: var(--red-pale);
+  border: 1px solid var(--red);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-family: var(--hindi);
+  font-size: 13px;
+  color: var(--red);
+  line-height: 1.6;
+  display: flex;
+  gap: 8px;
+}
+
+/* 7-day forecast */
+.forecast-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.fc-day {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 10px 4px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s;
+}
+.fc-day:hover { transform: translateY(-2px); }
+.fc-lbl { font-family: var(--sans); font-size: 8.5px; text-transform: uppercase; color: var(--txt3); margin-bottom: 6px; letter-spacing: 0.5px; }
+.fc-ico { font-size: 18px; display: block; margin-bottom: 4px; }
+.fc-tmp { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--txt); }
+.fc-rain { font-family: var(--sans); font-size: 9px; color: var(--sky); margin-top: 2px; }
+.fc-spray {
+  font-family: var(--sans);
+  font-size: 7.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-top: 4px;
+  display: inline-block;
+}
+.fs-ok { background: var(--leaf-pale); color: var(--leaf-deep); }
+.fs-no { background: var(--red-pale); color: var(--red); }
+
+/* Advisory cards */
+.adv-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.adv-ico { font-size: 28px; flex-shrink: 0; }
+.adv-label {
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.adv-title { font-family: var(--hindi); font-size: 15px; font-weight: 600; color: var(--txt); margin-bottom: 4px; }
+.adv-body { font-family: var(--hindi); font-size: 13px; color: var(--txt2); line-height: 1.6; }
+
+/* Radar links */
+.radar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.radar-link:active { transform: scale(0.98); }
+.rl-ico { font-size: 26px; flex-shrink: 0; }
+.rl-title { font-family: var(--hindi); font-size: 15px; font-weight: 600; color: var(--txt); margin-bottom: 2px; }
+.rl-sub { font-family: var(--sans); font-size: 11px; color: var(--txt3); }
+.rl-arrow { margin-left: auto; color: var(--txt3); font-size: 16px; }
+
+/* ═══════════════════════════════════════════════
+   MANDI PRICES SCREEN
+═══════════════════════════════════════════════ */
+.msp-banner {
+  background: var(--leaf-deep);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.msp-ico { font-size: 28px; }
+.msp-body {}
+.msp-title {
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 4px;
+}
+.msp-values {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.msp-item {
+  text-align: center;
+}
+.msp-val { font-family: var(--serif); font-size: 22px; color: #fff; line-height: 1; }
+.msp-name { font-family: var(--hindi); font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+.mandi-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.mc-left { flex: 1; }
+.mc-crop { font-family: var(--hindi); font-size: 16px; font-weight: 600; color: var(--txt); }
+.mc-hindi { font-family: var(--hindi); font-size: 11px; color: var(--txt3); }
+.mc-market { font-family: var(--sans); font-size: 10px; color: var(--txt3); margin-top: 4px; }
+.mc-note { font-family: var(--sans); font-size: 10px; color: var(--txt3); font-style: italic; }
+.mc-right { text-align: right; flex-shrink: 0; }
+.mc-price { font-family: var(--serif); font-size: 24px; color: var(--wheat); line-height: 1; }
+.mc-unit { font-family: var(--sans); font-size: 10px; color: var(--txt3); }
+.mc-chg { font-family: var(--sans); font-size: 11px; font-weight: 600; margin-top: 4px; }
+.mc-up { color: #43A047; }
+.mc-dn { color: var(--red); }
+.mc-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-family: var(--sans);
+  font-size: 7.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.mb-msp { background: var(--gold-pale); color: var(--wheat); }
+.mb-high { background: var(--leaf-pale); color: var(--leaf-deep); }
+.mb-low { background: var(--red-pale); color: var(--red); }
+
+/* Arthiya info box */
+.arthiya-box {
+  background: var(--gold-pale);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.arthiya-title {
+  font-family: var(--hindi);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--soil-deep);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.arthiya-body {
+  font-family: var(--hindi);
+  font-size: 13px;
+  color: var(--soil);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════
+   DISEASE DOCTOR SCREEN
+═══════════════════════════════════════════════ */
+.upload-zone {
+  background: var(--card);
+  border: 2px dashed var(--leaf);
+  border-radius: 16px;
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 14px;
+}
+.upload-zone:active { border-color: var(--leaf-deep); background: var(--sprout); }
+.uz-ico { font-size: 40px; margin-bottom: 10px; display: block; }
+.uz-title { font-family: var(--hindi); font-size: 18px; font-weight: 600; color: var(--txt); margin-bottom: 6px; }
+.uz-sub { font-family: var(--hindi); font-size: 13px; color: var(--txt3); }
+.uz-free { font-family: var(--sans); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--leaf); margin-top: 8px; background: var(--leaf-pale); padding: 4px 10px; border-radius: 3px; display: inline-block; }
+
+.dis-card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 5px 1fr;
+}
+.dis-bar-h { background: var(--red); }
+.dis-bar-m { background: var(--gold); }
+.dis-bar-l { background: var(--leaf); }
+.dis-body { padding: 13px 14px; }
+.dis-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.dis-name { font-family: var(--hindi); font-size: 15px; font-weight: 600; color: var(--txt); }
+.dis-tag {
+  font-family: var(--sans);
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.dt-high { background: var(--red-pale); color: var(--red); }
+.dt-med { background: var(--gold-pale); color: var(--wheat); }
+.dt-low { background: var(--leaf-pale); color: var(--leaf-deep); }
+.dis-desc { font-family: var(--hindi); font-size: 12.5px; color: var(--txt2); line-height: 1.65; }
+.dis-fix { font-family: var(--hindi); font-size: 12.5px; color: var(--leaf); line-height: 1.6; margin-top: 8px; background: var(--sprout); padding: 8px 10px; border-radius: 7px; }
+.dis-src { font-family: var(--sans); font-size: 9px; color: var(--txt3); margin-top: 6px; }
+
+/* ═══════════════════════════════════════════════
+   RADAR — आस-पास SCREEN
+═══════════════════════════════════════════════ */
+.radar-explain {
+  background: var(--sky-pale);
+  border: 1px solid var(--sky);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.re-title { font-family: var(--hindi); font-size: 16px; font-weight: 700; color: var(--sky); margin-bottom: 8px; }
+.re-body { font-family: var(--hindi); font-size: 13px; color: var(--txt2); line-height: 1.7; }
+.re-point { margin-bottom: 8px; display: flex; gap: 8px; }
+.re-num { font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--sky); background: var(--sky-pale); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--sky); }
+
+/* Radar visual */
+.radar-visual {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.radar-rings {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 16px;
+}
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ring-100 { width: 200px; height: 200px; border-color: rgba(2,119,189,0.2); background: rgba(2,119,189,0.03); }
+.ring-50  { width: 150px; height: 150px; border-color: rgba(2,119,189,0.3); background: rgba(2,119,189,0.04); }
+.ring-25  { width: 100px; height: 100px; border-color: rgba(2,119,189,0.4); background: rgba(2,119,189,0.06); }
+.ring-5   { width: 50px; height: 50px; border-color: rgba(2,119,189,0.6); background: rgba(2,119,189,0.1); }
+.ring-center { width: 14px; height: 14px; background: var(--leaf-deep); border-radius: 50%; box-shadow: 0 0 0 3px rgba(27,94,32,0.3); }
+.ring-labels { position: absolute; top: 50%; left: 50%; pointer-events: none; }
+.ring-lbl {
+  position: absolute;
+  font-family: var(--sans);
+  font-size: 8px;
+  color: var(--sky);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+.rl-25km { top: -75px; left: 0; }
+.rl-50km { top: -100px; left: 0; }
+
+/* Crop ring items */
+.radar-ring-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.rr-dist {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sky);
+  background: var(--sky-pale);
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 60px;
+  text-align: center;
+}
+.rr-crops { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+.rr-crop {
+  font-family: var(--hindi);
+  font-size: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 5px;
+  color: var(--txt2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.rr-alert { color: var(--red); font-size: 10px; }
+
+/* ═══════════════════════════════════════════════
+   ADVISORY SCREEN
+═══════════════════════════════════════════════ */
+.gbpuat-banner {
+  background: linear-gradient(135deg, #1B5E20, #2E7D32);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.gb-ico { font-size: 28px; }
+.gb-title { font-family: var(--hindi); font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.gb-sub { font-family: var(--sans); font-size: 10px; color: rgba(255,255,255,0.65); }
+
+.crop-adv-card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.cac-header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.cac-ico { font-size: 24px; }
+.cac-name { font-family: var(--hindi); font-size: 16px; font-weight: 600; color: var(--txt); flex: 1; }
+.cac-stage { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--leaf); background: var(--leaf-pale); padding: 3px 7px; border-radius: 3px; }
+.cac-arrow { color: var(--txt3); transition: transform 0.2s; }
+.cac-arrow.open { transform: rotate(90deg); }
+.cac-body {
+  padding: 12px 14px;
+  display: none;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.cac-body.open { display: block; }
+.cac-point {
+  font-family: var(--hindi);
+  font-size: 13px;
+  color: var(--txt2);
+  line-height: 1.7;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+}
+.cac-point:last-child { border-bottom: none; }
+.cac-dot { color: var(--leaf); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+.cac-src { font-family: var(--sans); font-size: 9.5px; color: var(--txt3); padding-top: 8px; }
+
+/* ═══════════════════════════════════════════════
+   HELP SCREEN
+═══════════════════════════════════════════════ */
+.help-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.help-card:active { transform: scale(0.98); }
+.hc2-ico { font-size: 28px; flex-shrink: 0; }
+.hc2-body { flex: 1; }
+.hc2-title { font-family: var(--hindi); font-size: 15px; font-weight: 600; color: var(--txt); margin-bottom: 3px; }
+.hc2-sub { font-family: var(--sans); font-size: 11px; color: var(--txt3); }
+.hc2-num { font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--leaf); }
+.hc2-arrow { color: var(--txt3); }
+
+/* ═══════════════════════════════════════════════
+   WAITLIST SCREEN
+═══════════════════════════════════════════════ */
+.waitlist-hero {
+  background: linear-gradient(160deg, #E65100 0%, #F9A825 100%);
+  padding: 24px 16px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.wl-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.wl-price {
+  font-family: var(--serif);
+  font-size: 52px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.wl-price-sub {
+  font-family: var(--hindi);
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 16px;
+}
+.wl-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.wl-feat {
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: left;
+}
+.wl-feat-ico { font-size: 18px; margin-bottom: 4px; display: block; }
+.wl-feat-txt { font-family: var(--hindi); font-size: 11.5px; color: rgba(255,255,255,0.9); line-height: 1.4; }
+.wl-early {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: var(--hindi);
+  font-size: 13px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.waitlist-form {
+  padding: 16px;
+  padding-bottom: 80px;
+}
+.wf-input-group { margin-bottom: 12px; }
+.wf-label { font-family: var(--hindi); font-size: 13px; color: var(--txt2); margin-bottom: 6px; display: block; font-weight: 500; }
+.wf-input, .wf-select {
+  width: 100%;
+  background: var(--card);
+  border: 1.5px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: var(--hindi);
+  font-size: 14px;
+  color: var(--txt);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.wf-input:focus, .wf-select:focus { border-color: var(--leaf); }
+.wf-input::placeholder { color: var(--txt3); }
+
+.wl-wa-btn {
+  width: 100%;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: var(--hindi);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+}
+.wl-wa-btn:active { transform: scale(0.98); }
+.wl-wa-ico { font-size: 22px; }
+
+.wl-email-btn {
+  width: 100%;
+  background: var(--card);
+  color: var(--txt);
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px;
+  font-family: var(--hindi);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  transition: all 0.2s;
+}
+.wl-email-btn:active { transform: scale(0.98); }
+
+.ppp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+.ppp-item {
+  background: var(--card);
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.ppp-flag { font-size: 18px; display: block; margin-bottom: 4px; }
+.ppp-val { font-family: var(--serif); font-size: 18px; color: var(--wheat); line-height: 1; }
+.ppp-country { font-family: var(--sans); font-size: 9px; color: var(--txt3); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════
+   MORE INFO SCREEN (all preserved sections)
+═══════════════════════════════════════════════ */
+.more-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.more-item:active { transform: scale(0.98); }
+.mi-ico { font-size: 26px; flex-shrink: 0; }
+.mi-title { font-family: var(--hindi); font-size: 15px; font-weight: 600; color: var(--txt); margin-bottom: 2px; }
+.mi-sub { font-family: var(--sans); font-size: 11px; color: var(--txt3); }
+.mi-arrow { margin-left: auto; color: var(--txt3); }
+
+/* ═══════════════════════════════════════════════
+   BOTTOM NAVIGATION
+═══════════════════════════════════════════════ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 150;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.bn-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  gap: 3px;
+}
+.bn-item.active .bn-ico { color: var(--leaf-deep); }
+.bn-item.active .bn-lbl { color: var(--leaf-deep); font-weight: 600; }
+.bn-ico { font-size: 22px; color: var(--txt3); transition: color 0.15s; }
+.bn-lbl { font-family: var(--hindi); font-size: 9.5px; color: var(--txt3); transition: color 0.15s; }
+.bn-item:active { transform: scale(0.9); }
+
+/* Feedback FAB */
+.feedback-fab {
+  position: fixed;
+  bottom: 70px;
+  right: max(14px, calc(50vw - 226px));
+  z-index: 140;
+  background: var(--leaf-deep);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: var(--hindi);
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.feedback-fab:active { transform: scale(0.95); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (min-width: 600px) {
+  .home-grid { grid-template-columns: repeat(3, 1fr); }
+  .inner-body { max-width: 600px; margin: 0 auto; }
+  .waitlist-form { max-width: 600px; margin: 0 auto; }
+}
+/* Desktop centring */
+@media (min-width: 481px) {
+  html { background: #2a2a2a; min-height: 100vh; }
+  body { box-shadow: 0 0 60px rgba(0,0,0,0.4); }
+  .bottom-nav { left: 50%; transform: translateX(-50%); right: auto; width: 100%; max-width: 480px; }
+  .feedback-fab { left: 50%; margin-left: 166px; right: auto; }
+}
+
+/* Alert + info banners */
+.alert-red { background: var(--red-pale); border: 1px solid var(--red); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; font-family: var(--hindi); font-size: 13px; color: var(--red); line-height: 1.6; }
+.alert-blue { background: var(--sky-pale); border: 1px solid var(--sky); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; font-family: var(--hindi); font-size: 13px; color: var(--sky); line-height: 1.6; }
+.alert-gold { background: var(--gold-pale); border: 1px solid var(--gold); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; font-family: var(--hindi); font-size: 13px; color: var(--soil); line-height: 1.6; }
+.alert-green { background: var(--sprout); border: 1px solid var(--leaf); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; font-family: var(--hindi); font-size: 13px; color: var(--leaf-deep); line-height: 1.6; }
+
+/* Loading state */
+.loading-txt { font-family: var(--hindi); font-size: 14px; color: var(--txt3); text-align: center; padding: 20px; }
+
+/* Scheme cards */
+.scheme-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+  border-left: 4px solid;
+}
+.sc-blue { border-left-color: var(--sky); }
+.sc-green { border-left-color: var(--leaf); }
+.sc-gold { border-left-color: var(--gold); }
+.sc-red { border-left-color: var(--red); }
+.scheme-name { font-family: var(--hindi); font-size: 15px; font-weight: 700; color: var(--txt); margin-bottom: 4px; }
+.scheme-benefit { font-family: var(--serif); font-size: 18px; color: var(--wheat); line-height: 1; margin-bottom: 6px; }
+.scheme-row { font-family: var(--hindi); font-size: 12.5px; color: var(--txt2); line-height: 1.6; margin-bottom: 3px; }
+.scheme-portal { font-family: var(--sans); font-size: 10px; color: var(--sky); margin-top: 6px; letter-spacing: 0.5px; }
+
+/* Story cards */
+.story-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+}
+.story-impact { font-family: var(--serif); font-size: 14px; color: var(--wheat); background: var(--wheat-pale); padding: 4px 10px; border-radius: 5px; display: inline-block; margin-bottom: 8px; }
+.story-headline { font-family: var(--hindi); font-size: 15px; font-weight: 700; color: var(--leaf-deep); font-style: italic; margin-bottom: 8px; line-height: 1.4; }
+.story-body { font-family: var(--hindi); font-size: 13px; color: var(--txt2); line-height: 1.7; margin-bottom: 8px; }
+.story-lesson { background: var(--sprout); border-left: 3px solid var(--leaf); padding: 8px 10px; border-radius: 0 7px 7px 0; font-family: var(--hindi); font-size: 12.5px; color: var(--leaf-deep); line-height: 1.6; }
+.story-src { font-family: var(--sans); font-size: 9.5px; color: var(--txt3); margin-top: 6px; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP NAV ═══ -->
+<nav class="top-nav">
+  <div class="nav-brand">
+    <div class="nav-logo-mark">म</div>
+    <div class="nav-name">
+      <span class="nav-name-primary">Madhoganj</span>
+      <span class="nav-name-sub">Farm ka AI</span>
+    </div>
+  </div>
+  <div class="nav-controls">
+    <label class="lang-btn">
+      <select id="langSel" onchange="switchLang(this.value)">
+        <option value="hi" selected>हिंदी</option>
+        <option value="en">English</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+        <option value="ha">हरयाणवी</option>
+      </select>
+    </label>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀</button>
+  </div>
+</nav>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker">
+  <div class="ticker-label">🔴 LIVE</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="tickerInner"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   HOME SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+
+  <!-- Live weather strip -->
+  <div class="home-weather-strip" id="homeWeatherStrip">
+    <div class="hws-left">
+      <span class="hws-ico" id="hws-ico">⛅</span>
+      <div>
+        <div class="hws-temp" id="hws-temp">--°</div>
+        <div class="hws-desc" id="hws-desc">मौसम लोड हो रहा है...</div>
+        <div class="hws-loc">📍 बाज़पुर / USN</div>
+      </div>
+    </div>
+    <div class="hws-right">
+      <span class="hws-spray spray-ok" id="hws-spray">लोड...</span>
+      <div class="hws-rain" id="hws-rain">--</div>
+    </div>
+  </div>
+
+  <!-- BETA BANNER -->
+  <div style="background:#F9A825;padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:8px;">
+    <span style="font-size:14px;">🚀</span>
+    <div style="font-family:var(--hindi);font-size:12px;color:#1A1000;font-weight:600;line-height:1.4;" class="beta-banner-txt">BETA — 7 FREE diagnoses · हर हफ्ते नए features · Multimodal Voice/Video जल्दी</div>
+  </div>
+
+  <!-- 6-CARD GRID -->
+  <div class="home-grid">
+
+    <div class="home-card hc-weather" onclick="showScreen('weather')">
+      <div class="hc-top">
+        <span class="hc-icon">🌤</span>
+        <span class="hc-badge">LIVE API</span>
+      </div>
+      <div class="hc-bottom">
+        <div class="hc-title">मौसम</div>
+        <div class="hc-sub">Weather · 7 दिन</div>
+      </div>
+    </div>
+
+    <div class="home-card hc-price" onclick="showScreen('prices')">
+      <div class="hc-top">
+        <span class="hc-icon">₹</span>
+        <span class="hc-badge">25 CROPS</span>
+      </div>
+      <div class="hc-bottom">
+        <div class="hc-title">मंडी भाव</div>
+        <div class="hc-sub">Mandi Prices</div>
+      </div>
+    </div>
+
+    <div class="home-card hc-doctor" onclick="showScreen('doctor')">
+      <div class="hc-top">
+        <span class="hc-icon">📷</span>
+        <span class="hc-badge">FREE</span>
+      </div>
+      <div class="hc-bottom">
+        <div class="hc-title">फसल डॉक्टर</div>
+        <div class="hc-sub">Disease · Advice</div>
+      </div>
+    </div>
+
+    <div class="home-card hc-radar" onclick="showScreen('radar')">
+      <div class="hc-top">
+        <span class="hc-icon">🗺️</span>
+        <span class="hc-badge">5-10-25 KM</span>
+      </div>
+      <div class="hc-bottom">
+        <div class="hc-title">मेरे आस-पास</div>
+        <div class="hc-sub">आपके आसपास क्या?</div>
+      </div>
+    </div>
+
+    <div class="home-card hc-advice" onclick="showScreen('advisory')">
+      <div class="hc-top">
+        <span class="hc-icon">📋</span>
+        <span class="hc-badge">PANTNAGAR</span>
+      </div>
+      <div class="hc-bottom">
+        <div class="hc-title" style="color:#1B3A00;">सलाह</div>
+        <div class="hc-sub" style="color:rgba(0,0,0,0.6);">GBPUAT Advisory</div>
+      </div>
+    </div>
+
+    <div class="home-card hc-help" onclick="showScreen('help')">
+      <div class="hc-top">
+        <span class="hc-icon">📞</span>
+        <span class="hc-badge">HELPLINES</span>
+      </div>
+      <div class="hc-bottom">
+        <div class="hc-title">मदद</div>
+        <div class="hc-sub">KVK · Schemes · Help</div>
+      </div>
+    </div>
+
+    <!-- WAITLIST CARD — full width -->
+    <div class="hc-waitlist" onclick="showScreen('waitlist')">
+      <div class="hwl-top">
+        <div class="hwl-title">🌾 Premium Diagnosis</div>
+        <span class="hwl-badge">COMING SOON</span>
+      </div>
+      <div class="hwl-price">₹29 <span>per deep diagnosis</span></div>
+      <div class="hwl-desc">🎁 <strong>7 FREE diagnoses</strong> — फिर ₹29/diagnosis या ₹499/month unlimited<br><span style="font-size:11px;opacity:0.85;">अभी BETA · हर हफ्ते नए features</span></div>
+      <button class="hwl-btn" onclick="event.stopPropagation(); openWaitlistWA()">
+        <span>💬</span> WhatsApp पर Register करें — Free
+      </button>
+      <div style="font-family:var(--sans);font-size:10px;color:rgba(255,255,255,0.85);margin-top:7px;text-align:center;">या email: raj@artigellence.com</div>
+    </div>
+
+  </div>
+
+  <!-- More Info -->
+  <div style="padding: 0 14px 10px;">
+    <button onclick="showScreen('more')" style="width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:12px;padding:14px;font-family:var(--hindi);font-size:15px;color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+      <span>📚</span> और जानकारी — बाकी सभी विषय ›
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   WEATHER SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-weather">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">🌤 मौसम — Weather</div>
+  </div>
+  <div class="inner-body">
+    <div class="wx-main-card">
+      <div class="wx-city"><span class="wx-live-dot"></span> LIVE · बाज़पुर / USN · Open-Meteo</div>
+      <div class="wx-big-temp" id="wxBigTemp">--°C</div>
+      <div class="wx-desc" id="wxBigDesc">मौसम लोड हो रहा है...</div>
+      <div class="wx-stats" id="wxStats"></div>
+    </div>
+
+    <div class="wx-alert" id="wxAlert" style="display:none;">
+      <span>⚠️</span><span id="wxAlertTxt"></span>
+    </div>
+
+    <div class="sec-lbl">7 दिन का अनुमान</div>
+    <div class="forecast-strip" id="forecast7day"></div>
+
+    <div class="sec-lbl">खेती की सलाह</div>
+    <div id="farmingAdvisory"></div>
+
+    <div class="sec-lbl">Live Radar Links</div>
+    <a class="radar-link" href="https://www.windy.com/29.20/79.38?rain,29.20,79.38,9" target="_blank">
+      <span class="rl-ico">🌧</span>
+      <div><div class="rl-title">Windy Rain Radar</div><div class="rl-sub">बाज़पुर / USN · Interactive</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+    <a class="radar-link" href="https://mausam.imd.gov.in/imd_latest/contents/index_radar.php" target="_blank">
+      <span class="rl-ico">📡</span>
+      <div><div class="rl-title">IMD Doppler Radar</div><div class="rl-sub">India · Official · हर 10 मिनट</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+    <a class="radar-link" href="https://zoom.earth/#view=29.20,79.38,9z/layers=radar,fires" target="_blank">
+      <span class="rl-ico">🛰</span>
+      <div><div class="rl-title">Satellite View — USN</div><div class="rl-sub">NASA/NOAA · Near Real-Time</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+
+    <div class="sec-lbl">City Switcher</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" id="citySwitcher"></div>
+
+    <div style="background:var(--card2);border-radius:10px;padding:12px 14px;font-family:var(--sans);font-size:10px;color:var(--txt3);line-height:1.7;">
+      Source: open-meteo.com · Free · No API key · Updates every 15 min · Lat 29.20°N Lon 79.38°E (Bazpur).<br>
+      इस डेटा पर खेती के निर्णय से पहले स्थानीय KVK / GBPUAT की सलाह ज़रूर लें।
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   MANDI PRICES SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-prices">
+  <div class="inner-header" style="background:#E65100;">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">₹ मंडी भाव</div>
+  </div>
+  <div class="inner-body">
+
+    <div class="msp-banner">
+      <span class="msp-ico">🛡️</span>
+      <div>
+        <div class="msp-title">FLOOR PRICE — इससे नीचे न बेचें</div>
+        <div class="msp-values">
+          <div class="msp-item"><div class="msp-val">₹355</div><div class="msp-name">गन्ना FRP/q</div></div>
+          <div class="msp-item"><div class="msp-val">₹405</div><div class="msp-name">UK SAP/q</div></div>
+          <div class="msp-item"><div class="msp-val">₹2,300</div><div class="msp-name">धान MSP/q</div></div>
+          <div class="msp-item"><div class="msp-val">₹2,275</div><div class="msp-name">गेहूं MSP/q</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arthiya-box">
+      <div class="arthiya-title">⚠️ आढ़तिया (Arthiya) से सावधान</div>
+      <div class="arthiya-body">
+        अगर आढ़तिया MSP से कम दाम दे तो उसे यह नंबर बताएं — <strong>1800-270-0224 (eNAM)</strong>। आज का भाव देखें, 3 मंडियों में compare करें, फिर बेचें।<br>
+        <strong>गन्ना:</strong> UK SAP ₹405/q — mill को 14 दिन में payment करना होगा।
+      </div>
+    </div>
+
+    <div class="sec-lbl" style="margin-top:4px;">Source: Agmarknet · eNAM · बाज़पुर · काशीपुर · रुद्रपुर · जसपुर</div>
+    <div style="font-family:var(--sans);font-size:9.5px;color:var(--txt3);margin-bottom:12px;margin-top:-6px;" id="priceDate"></div>
+    <div id="mandiList"></div>
+
+    <div class="sec-lbl">MSP 2024-25 पूरी सूची</div>
+    <div id="mspList"></div>
+
+    <div style="background:var(--card2);border-radius:10px;padding:12px 14px;font-family:var(--hindi);font-size:11.5px;color:var(--txt3);line-height:1.7;margin-top:8px;">
+      ⚠️ यह भाव सांकेतिक हैं। वास्तविक भाव मंडी में quality, आवक, और मांग के अनुसार बदलते हैं। Source: Agmarknet / eNAM (data.gov.in)
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   DISEASE DOCTOR SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-doctor">
+  <div class="inner-header" style="background:#C62828;">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">📷 फसल डॉक्टर</div>
+  </div>
+  <div class="inner-body">
+
+    <div class="upload-zone" onclick="document.getElementById('cropPhotoInput').click()">
+      <span class="uz-ico">📸</span>
+      <div class="uz-title">फसल की फोटो डालें</div>
+      <div class="uz-sub">बीमार पत्ती, तना, या फल की फोटो लें<br>Hindi में जवाब मिलेगा</div>
+      <div class="uz-free">7 FREE diagnoses · फिर ₹29/diagnosis या ₹499/month</div>
+      <input type="file" id="cropPhotoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+    </div>
+    <div id="photoPreview" style="display:none;margin-bottom:12px;text-align:center;">
+      <img id="previewImg" style="max-width:100%;border-radius:12px;max-height:200px;" alt="Crop photo">
+      <div style="font-family:var(--hindi);font-size:13px;color:var(--leaf);margin-top:8px;">📤 WhatsApp पर भेजें expert को</div>
+      <button onclick="sendToExpert()" style="margin-top:8px;background:var(--leaf);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-family:var(--hindi);font-size:14px;font-weight:600;cursor:pointer;width:100%;">
+        💬 Expert को भेजें (Free)
+      </button>
+    </div>
+
+    <div class="alert-red">
+      ⚠️ यह जानकारी केवल शैक्षिक है। उपचार से पहले KVK काशीपुर (05947-276501) या स्थानीय कृषि अधिकारी से परामर्श लें।
+    </div>
+
+    <div class="sec-lbl">सक्रिय रोग अलर्ट — बाज़पुर / USN क्षेत्र</div>
+    <div id="diseaseAlerts"></div>
+
+    <div class="sec-lbl">Source: GBPUAT पंतनगर · KVK काशीपुर · ICAR</div>
+    <a class="radar-link" href="https://udhamsinghnagar.kvk4.in" target="_blank">
+      <span class="rl-ico">🏫</span>
+      <div><div class="rl-title">KVK उधम सिंह नगर</div><div class="rl-sub">बजपुर रोड, काशीपुर · 05947-276501</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+    <a class="radar-link" href="https://www.gbpuat.ac.in/agromet" target="_blank">
+      <span class="rl-ico">🎓</span>
+      <div><div class="rl-title">GBPUAT पंतनगर Agromet</div><div class="rl-sub">Twice-weekly advisory bulletin</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   RADAR — आस-पास SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-radar">
+  <div class="inner-header" style="background:#0277BD;">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">🗺️ मेरे आस-पास</div>
+  </div>
+  <div class="inner-body">
+
+    <div class="radar-explain">
+      <div class="re-title">यह Radar क्यों ज़रूरी है?</div>
+      <div class="re-body">
+        <div class="re-point">
+          <div class="re-num">1</div>
+          <div><strong>बीमारी की चेतावनी:</strong> अगर पड़ोस के खेत में blast आया है, तो 7-10 दिन में आपके खेत में भी आ सकता है — पहले से दवा तैयार रखें।</div>
+        </div>
+        <div class="re-point">
+          <div class="re-num">2</div>
+          <div><strong>दाम का असर:</strong> अगर 10 km के अंदर सब लोग टमाटर लगा रहे हैं, तो मंडी में दाम गिरेगा — आप कुछ और लगाइये।</div>
+        </div>
+        <div class="re-point">
+          <div class="re-num">3</div>
+          <div><strong>मिलकर ताकत:</strong> 25 km में 500 गन्ना किसान मिलकर mill से अच्छा दाम मांग सकते हैं।</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="radar-visual">
+      <div style="font-family:var(--hindi);font-size:14px;font-weight:600;color:var(--txt);margin-bottom:14px;">बाज़पुर / USN क्षेत्र</div>
+      <div class="radar-rings">
+        <div class="ring ring-100"><div class="ring ring-50"><div class="ring ring-25"><div class="ring ring-5"><div class="ring-center"></div></div></div></div></div>
+        <div class="ring-labels">
+          <div class="ring-lbl rl-25km">25km</div>
+          <div class="ring-lbl rl-50km">50km</div>
+        </div>
+      </div>
+      <div style="font-family:var(--hindi);font-size:11px;color:var(--txt3);margin-top:4px;">🟢 = आपकी जगह · Community data growing</div>
+    </div>
+
+    <div class="sec-lbl">आपके आसपास की फसलें</div>
+    <div id="radarRings"></div>
+
+    <div class="alert-gold" style="margin-top:10px;">
+      💡 यह Radar community data से बनेगा। जितने ज़्यादा किसान join करेंगे, उतनी सही जानकारी मिलेगी।<br>
+      <strong>अभी register करें → 3 free diagnoses पाएं</strong>
+    </div>
+    <button onclick="showScreen('waitlist')" style="width:100%;background:var(--leaf-deep);color:#fff;border:none;border-radius:12px;padding:14px;font-family:var(--hindi);font-size:15px;font-weight:600;cursor:pointer;margin-top:8px;">
+      WhatsApp पर Join करें ›
+    </button>
+
+    <div class="sec-lbl" style="margin-top:14px;">Satellite Field Mapping</div>
+    <a class="radar-link" href="https://fieldsofthe.world" target="_blank">
+      <span class="rl-ico">🗺</span>
+      <div><div class="rl-title">Fields of The World</div><div class="rl-sub">3.17 अरब खेत की boundaries · Free</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+    <a class="radar-link" href="https://mosdac.gov.in" target="_blank">
+      <span class="rl-ico">🛰</span>
+      <div><div class="rl-title">MOSDAC — ISRO India</div><div class="rl-sub">Soil moisture · NDVI · Rainfall maps</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   ADVISORY SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-advisory">
+  <div class="inner-header" style="background:#4E342E;">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">📋 सलाह — Advisory</div>
+  </div>
+  <div class="inner-body">
+    <div class="gbpuat-banner">
+      <span class="gb-ico">🎓</span>
+      <div>
+        <div class="gb-title">GBPUAT पंतनगर — कृषि मौसम सेवा</div>
+        <div class="gb-sub">Twice-weekly bulletin for Udham Singh Nagar · Verified source</div>
+      </div>
+    </div>
+    <div id="advisoryCards"></div>
+    <div class="sec-lbl" style="margin-top:14px;">Official Links</div>
+    <a class="radar-link" href="https://www.gbpuat.ac.in/agromet/" target="_blank">
+      <span class="rl-ico">📄</span>
+      <div><div class="rl-title">GBPUAT Agromet Bulletins</div><div class="rl-sub">Download original PDF — English + Hindi</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+    <a class="radar-link" href="https://udhamsinghnagar.kvk4.in" target="_blank">
+      <span class="rl-ico">🌾</span>
+      <div><div class="rl-title">KVK उधम सिंह नगर</div><div class="rl-sub">Training programs · On-farm demonstrations</div></div>
+      <span class="rl-arrow">↗</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   HELP SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-help">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">📞 मदद — Help</div>
+  </div>
+  <div class="inner-body">
+    <div class="sec-lbl">Emergency Helplines</div>
+    <a class="help-card" href="tel:18001801551">
+      <span class="hc2-ico">📞</span>
+      <div class="hc2-body">
+        <div class="hc2-title">किसान Call Centre</div>
+        <div class="hc2-num">1800-180-1551</div>
+        <div class="hc2-sub">Free · 24×7 · Hindi + 7 languages</div>
+      </div>
+      <span class="hc2-arrow">›</span>
+    </a>
+    <a class="help-card" href="tel:1962">
+      <span class="hc2-ico">🐄</span>
+      <div class="hc2-body">
+        <div class="hc2-title">पशु Helpline</div>
+        <div class="hc2-num">1962</div>
+        <div class="hc2-sub">Animal disease · Free · 24×7</div>
+      </div>
+      <span class="hc2-arrow">›</span>
+    </a>
+    <a class="help-card" href="tel:14447">
+      <span class="hc2-ico">🛡️</span>
+      <div class="hc2-body">
+        <div class="hc2-title">PM Fasal Bima (PMFBY)</div>
+        <div class="hc2-num">14447</div>
+        <div class="hc2-sub">Crop insurance · Loss reporting</div>
+      </div>
+      <span class="hc2-arrow">›</span>
+    </a>
+    <a class="help-card" href="tel:155261">
+      <span class="hc2-ico">🌾</span>
+      <div class="hc2-body">
+        <div class="hc2-title">PM KISAN Helpline</div>
+        <div class="hc2-num">155261</div>
+        <div class="hc2-sub">Installment queries</div>
+      </div>
+      <span class="hc2-arrow">›</span>
+    </a>
+    <a class="help-card" href="tel:05947276501">
+      <span class="hc2-ico">🏫</span>
+      <div class="hc2-body">
+        <div class="hc2-title">KVK काशीपुर / USN</div>
+        <div class="hc2-num">05947-276501</div>
+        <div class="hc2-sub">बजपुर रोड, काशीपुर, PIN 244713</div>
+      </div>
+      <span class="hc2-arrow">›</span>
+    </a>
+
+    <div class="sec-lbl">WhatsApp Support</div>
+    <div class="help-card" onclick="openWaitlistWA()">
+      <span class="hc2-ico">💬</span>
+      <div class="hc2-body">
+        <div class="hc2-title">Madhoganj WhatsApp</div>
+        <div class="hc2-num">+61 452 308 178</div>
+        <div class="hc2-sub">Photos · Questions · Register interest</div>
+      </div>
+      <span class="hc2-arrow">›</span>
+    </div>
+
+    <div class="sec-lbl">Schemes — सरकारी योजनाएं</div>
+    <div id="helpSchemes"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   WAITLIST SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-waitlist">
+  <div class="inner-header" style="background:#E65100;">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">💬 Register — ₹29 Diagnosis</div>
+  </div>
+
+  <div class="waitlist-hero">
+    <div class="wl-badge">🚀 Early Access · Limited Spots</div>
+    <div class="wl-price">₹29</div>
+    <div class="wl-price-sub">per diagnosis · या ₹499/month unlimited<br><span style="font-size:12px;opacity:0.85;">पहले <strong>7 diagnoses FREE</strong></span></div>
+    <div class="wl-features">
+      <div class="wl-feat"><span class="wl-feat-ico">🔬</span><div class="wl-feat-txt">Full root cause analysis — WHY हुई बीमारी</div></div>
+      <div class="wl-feat"><span class="wl-feat-ico">🌿</span><div class="wl-feat-txt">Organic alternatives first — paid placement नहीं</div></div>
+      <div class="wl-feat"><span class="wl-feat-ico">📊</span><div class="wl-feat-txt">Mandi se compare करके best price</div></div>
+      <div class="wl-feat"><span class="wl-feat-ico">🎤</span><div class="wl-feat-txt">Voice in Hindi coming soon</div></div>
+    </div>
+    <div class="wl-early">
+      🎁 <strong>7 FREE diagnoses</strong> — कोई card, कोई payment नहीं<br>फिर: <strong>₹29/diagnosis</strong> या <strong>₹499/month unlimited</strong><br>अभी <strong>BETA</strong> — हर हफ्ते नए features
+    </div>
+  </div>
+
+  <div class="waitlist-form">
+
+    <div class="wf-input-group">
+      <label class="wf-label">आपका नाम *</label>
+      <input class="wf-input" id="wl-name" type="text" placeholder="जैसे: राम सिंह">
+    </div>
+    <div class="wf-input-group">
+      <label class="wf-label">गाँव / शहर *</label>
+      <input class="wf-input" id="wl-village" type="text" placeholder="जैसे: बाज़पुर, गदरपुर, जसपुर...">
+    </div>
+    <div class="wf-input-group">
+      <label class="wf-label">मुख्य फसल</label>
+      <select class="wf-select" id="wl-crop">
+        <option value="">फसल चुनें...</option>
+        <option>गन्ना (Sugarcane)</option>
+        <option>धान / चावल (Paddy)</option>
+        <option>गेहूं (Wheat)</option>
+        <option>मक्का (Maize)</option>
+        <option>सब्ज़ी (Vegetables)</option>
+        <option>फल (Fruits)</option>
+        <option>अन्य (Other)</option>
+      </select>
+    </div>
+    <div class="wf-input-group">
+      <label class="wf-label">कितने बीघा / एकड़ जमीन?</label>
+      <input class="wf-input" id="wl-land" type="text" placeholder="जैसे: 5 बीघा, 2 एकड़...">
+    </div>
+
+    <button class="wl-wa-btn" onclick="submitWaitlist()">
+      <span class="wl-wa-ico">💬</span>
+      WhatsApp पर Register करें — Free
+    </button>
+
+    <button class="wl-email-btn" onclick="submitWaitlistEmail()">
+      📧 Email से Register करें
+    </button>
+
+    <div class="sec-lbl" style="margin-top:20px;">Global PPP Pricing</div>
+    <div class="ppp-grid">
+      <div class="ppp-item"><span class="ppp-flag">🇮🇳</span><div class="ppp-val">₹29</div><div class="ppp-country">India</div></div>
+      <div class="ppp-item"><span class="ppp-flag">🇬🇧</span><div class="ppp-val">£0.35</div><div class="ppp-country">UK</div></div>
+      <div class="ppp-item"><span class="ppp-flag">🇦🇺</span><div class="ppp-val">A$0.55</div><div class="ppp-country">Australia</div></div>
+      <div class="ppp-item"><span class="ppp-flag">🇺🇸</span><div class="ppp-val">$0.35</div><div class="ppp-country">USA</div></div>
+      <div class="ppp-item"><span class="ppp-flag">🇵🇰</span><div class="ppp-val">Rs 100</div><div class="ppp-country">Pakistan</div></div>
+      <div class="ppp-item"><span class="ppp-flag">🇧🇩</span><div class="ppp-val">৳40</div><div class="ppp-country">Bangladesh</div></div>
+    </div>
+
+    <div class="sec-lbl" style="margin-top:16px;">Coming Features — आ रहा है</div>
+    <div style="background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:20px;">🎤</span><div><div style="font-family:var(--hindi);font-size:13px;font-weight:600;color:var(--txt);">Voice Upload</div><div style="font-family:var(--hindi);font-size:11.5px;color:var(--txt3);">Hindi · Punjabi · Urdu · Haryanvi</div></div></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:20px;">🎥</span><div><div style="font-family:var(--hindi);font-size:13px;font-weight:600;color:var(--txt);">Video Diagnosis</div><div style="font-family:var(--hindi);font-size:11.5px;color:var(--txt3);">30 second clip</div></div></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:20px;">💳</span><div><div style="font-family:var(--hindi);font-size:13px;font-weight:600;color:var(--txt);">UPI Payment</div><div style="font-family:var(--hindi);font-size:11.5px;color:var(--txt3);">₹29/diagnosis या ₹499/month</div></div></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:20px;">🗺️</span><div><div style="font-family:var(--hindi);font-size:13px;font-weight:600;color:var(--txt);">Live Radar</div><div style="font-family:var(--hindi);font-size:11.5px;color:var(--txt3);">Community crop map</div></div></div>
+      </div>
+    </div>
+
+    <div style="background:var(--card2);border-radius:10px;padding:12px 14px;font-family:var(--hindi);font-size:11.5px;color:var(--txt3);line-height:1.7;margin-top:14px;">
+      📋 <strong>Privacy:</strong> आपका नाम, गाँव, और फसल की जानकारी केवल Madhoganj सेवा के लिए उपयोग होगी। किसी तीसरे पक्ष को नहीं दी जाएगी। कोई spam नहीं।<br>
+      Contact: <strong>raj@artigellence.com</strong> · WhatsApp: <strong>+61 452 308 178</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   MORE INFO SCREEN
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-more">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <div class="inner-title">📚 और जानकारी</div>
+  </div>
+  <div class="inner-body">
+    <div class="alert-green">
+      यहाँ सभी detailed sections हैं। Home पर मुख्य 6 cards हैं — बाकी सब यहाँ है।
+    </div>
+    <div id="moreMenuList"></div>
+  </div>
+</div>
+
+<!-- Sub-screens for more menu items -->
+<div class="screen" id="screen-pesticides">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">🧪 कीटनाशक गाइड</div></div>
+  <div class="inner-body"><div class="alert-red">⚠️ केवल शैक्षिक। उपयोग से पहले KVK से परामर्श लें।</div><div id="pesticideCards"></div></div>
+</div>
+<div class="screen" id="screen-schemes">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">🏛 सरकारी योजनाएं</div></div>
+  <div class="inner-body"><div id="schemeCards"></div></div>
+</div>
+<div class="screen" id="screen-stories">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">🌟 किसान कहानियां</div></div>
+  <div class="inner-body"><div id="storyCards"></div></div>
+</div>
+<div class="screen" id="screen-machinery">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">🚜 मशीनरी</div></div>
+  <div class="inner-body"><div class="alert-blue">💡 SMAM subsidy: SC/ST/Small = 50% · Others = 40% · agrimachinery.nic.in</div><div id="machCards"></div></div>
+</div>
+<div class="screen" id="screen-global">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">🌍 Global Farming</div></div>
+  <div class="inner-body"><div id="globalCards"></div></div>
+</div>
+<div class="screen" id="screen-animal">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">🐄 पशुपालन</div></div>
+  <div class="inner-body"><div class="alert-red">⚠️ पशु बीमार होने पर vet से मिलें। Helpline: 1962</div><div id="animalCards"></div></div>
+</div>
+<div class="screen" id="screen-movements">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">✊ किसान आंदोलन</div></div>
+  <div class="inner-body"><div class="alert-gold">📢 Madhoganj का कोई राजनीतिक पक्ष नहीं है। यह केवल जानकारी के लिए है।</div><div id="movementCards"></div></div>
+</div>
+<div class="screen" id="screen-upload">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">📤 Upload / Share</div></div>
+  <div class="inner-body">
+    <div class="alert-blue">📋 Moderated by AAA — Artigellence Augmentation Aggregator · Only farming content · 24-48hr review</div>
+    <div class="wf-input-group" style="margin-top:10px;">
+      <label class="wf-label">Submission type</label>
+      <select class="wf-select" id="up-type"><option>🔬 Disease photo for diagnosis</option><option>📊 Local mandi price update</option><option>🌟 Farmer success story</option><option>❓ Farming question</option><option>🌧 Weather/damage report</option><option>💡 New technique/tip</option><option>✊ Local farmer meeting</option></select>
+    </div>
+    <div class="wf-input-group"><label class="wf-label">Your name (optional)</label><input class="wf-input" id="up-name" placeholder="Ramesh Kumar, Bazpur..."></div>
+    <div class="wf-input-group"><label class="wf-label">District / Village</label><input class="wf-input" id="up-district" placeholder="Udham Singh Nagar, Bazpur..."></div>
+    <div class="wf-input-group"><label class="wf-label">Description (any language)</label><textarea class="wf-input" id="up-desc" rows="4" placeholder="किसी भी भाषा में लिखें..."></textarea></div>
+    <button onclick="submitUpload()" style="width:100%;background:var(--leaf-deep);color:#fff;border:none;border-radius:12px;padding:14px;font-family:var(--hindi);font-size:15px;font-weight:600;cursor:pointer;">
+      Submit to AAA Moderation ↗
+    </button>
+  </div>
+</div>
+<div class="screen" id="screen-terms">
+  <div class="inner-header"><button class="back-btn" onclick="showScreen('more')">←</button><div class="inner-title">📄 Disclaimer / Terms</div></div>
+  <div class="inner-body" id="termsContent"></div>
+</div>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <button class="bn-item active" id="bn-home" onclick="showScreen('home');setActive('bn-home')">
+    <span class="bn-ico">🏠</span><span class="bn-lbl">Home</span>
+  </button>
+  <button class="bn-item" id="bn-weather" onclick="showScreen('weather');setActive('bn-weather')">
+    <span class="bn-ico">🌤</span><span class="bn-lbl">मौसम</span>
+  </button>
+  <button class="bn-item" id="bn-prices" onclick="showScreen('prices');setActive('bn-prices')">
+    <span class="bn-ico">₹</span><span class="bn-lbl">भाव</span>
+  </button>
+  <button class="bn-item" id="bn-waitlist" onclick="showScreen('waitlist');setActive('bn-waitlist')">
+    <span class="bn-ico">💬</span><span class="bn-lbl">Register</span>
+  </button>
+  <button class="bn-item" id="bn-more" onclick="showScreen('more');setActive('bn-more')">
+    <span class="bn-ico">☰</span><span class="bn-lbl">और</span>
+  </button>
+</nav>
+
+<!-- Feedback FAB -->
+<button class="feedback-fab" onclick="openFeedback()">✉ सुझाव</button>
+
+<script>
+'use strict';
+
+// ════ DATA ════
+
+const WX_CITIES = {
+  bazpur:      { name:'बाज़पुर / USN', lat:29.20, lon:79.38, alert:'⚠️ गन्ने में Red Rot का खतरा — Co-0238 न लगाएं। KVK काशीपुर advisory active।' },
+  gadarpur:    { name:'गदरपुर', lat:29.00, lon:79.50, alert:'🌊 Kosi नदी — waterlogging risk। धान की nursery देखें।' },
+  rudrapur:    { name:'रुद्रपुर', lat:28.98, lon:79.40, alert:'🌡️ Heat wave — nursery को सुबह 5-7 बजे irrigate करें।' },
+  kashipur:    { name:'काशीपुर', lat:29.21, lon:78.96, alert:'🎋 गन्ने में Pyrilla कीट — Dimethoate 30EC spray करें।' },
+  jaspur:      { name:'जसपुर', lat:29.29, lon:79.00, alert:'🌾 Basmati paddy — quality window खुली है।' },
+  delhi:       { name:'दिल्ली NCR', lat:28.61, lon:77.21, alert:'☀️ Heat advisory — nursery को छाया दें।' },
+};
+
+const WX_CODE = {
+  0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌦',61:'🌧',63:'🌧',65:'⛈',71:'❄️',80:'🌦',81:'🌧',95:'⛈',96:'🌩',99:'🌩'
+};
+const WX_DESC = {
+  0:'साफ आसमान',1:'ज़्यादातर साफ',2:'आंशिक बादल',3:'बादल',45:'कोहरा',51:'हल्की बूंदाबांदी',61:'हल्की बारिश',63:'बारिश',65:'भारी बारिश',80:'बौछारें',95:'आंधी-तूफान'
+};
+
+const MANDI_DATA = [
+  {crop:'गन्ना',en:'Sugarcane',price:405,unit:'₹/q',chg:'+30',dir:'up',mkt:'बाज़पुर Sugar Mill',badge:'mb-msp',bt:'SAP ₹405',note:'UK SAP 2025-26'},
+  {crop:'बासमती धान',en:'Basmati Paddy',price:3850,unit:'₹/q',chg:'+120',dir:'up',mkt:'जसपुर मंडी',badge:'mb-high',bt:'High Season',note:''},
+  {crop:'सामान्य धान',en:'Common Paddy',price:2310,unit:'₹/q',chg:'-30',dir:'dn',mkt:'रुद्रपुर',badge:'mb-msp',bt:'MSP ₹2300',note:''},
+  {crop:'गेहूं',en:'Wheat',price:2300,unit:'₹/q',chg:'+25',dir:'up',mkt:'बाज़पुर मंडी',badge:'mb-msp',bt:'MSP ₹2275',note:'Rabi 2024-25'},
+  {crop:'मेंथा तेल',en:'Mentha Oil',price:970,unit:'₹/kg',chg:'+18',dir:'up',mkt:'चंदौसी / संभल',badge:'mb-high',bt:'High',note:'UP season'},
+  {crop:'गुड़',en:'Jaggery',price:4300,unit:'₹/q',chg:'+200',dir:'up',mkt:'मुज़फ्फरनगर',badge:'mb-high',bt:'Peak',note:''},
+  {crop:'हरी मटर',en:'Green Peas',price:3200,unit:'₹/q',chg:'-400',dir:'dn',mkt:'हल्द्वानी',badge:'',bt:'',note:'Harvest glut'},
+  {crop:'अरहर दाल',en:'Arhar Dal',price:7200,unit:'₹/q',chg:'+180',dir:'up',mkt:'गाज़ियाबाद',badge:'mb-msp',bt:'MSP ₹7000',note:''},
+  {crop:'आलू',en:'Potato',price:850,unit:'₹/q',chg:'+100',dir:'up',mkt:'आगरा / फर्रुखाबाद',badge:'',bt:'',note:''},
+  {crop:'प्याज़',en:'Onion',price:1200,unit:'₹/q',chg:'-250',dir:'dn',mkt:'नासिक',badge:'mb-low',bt:'Glut',note:'Heavy arrivals'},
+  {crop:'टमाटर',en:'Tomato',price:1100,unit:'₹/q',chg:'-300',dir:'dn',mkt:'हल्द्वानी',badge:'',bt:'',note:''},
+  {crop:'अदरक',en:'Ginger',price:5200,unit:'₹/q',chg:'+400',dir:'up',mkt:'काशीपुर / हल्द्वानी',badge:'mb-high',bt:'Peak',note:'USN best region'},
+  {crop:'हल्दी',en:'Turmeric',price:14500,unit:'₹/q',chg:'+800',dir:'up',mkt:'Erode',badge:'mb-high',bt:'Export',note:'UAE demand'},
+  {crop:'मक्का',en:'Maize',price:1980,unit:'₹/q',chg:'+60',dir:'up',mkt:'बाजपुर / गदरपुर',badge:'mb-msp',bt:'MSP ₹1962',note:''},
+  {crop:'सरसों',en:'Mustard',price:5650,unit:'₹/q',chg:'-50',dir:'dn',mkt:'पंतनगर',badge:'',bt:'',note:''},
+  {crop:'सोयाबीन',en:'Soybean',price:4050,unit:'₹/q',chg:'-80',dir:'dn',mkt:'इंदौर',badge:'mb-msp',bt:'MSP ₹4892',note:'Below MSP'},
+  {crop:'मूंग दाल',en:'Moong Dal',price:8800,unit:'₹/q',chg:'+300',dir:'up',mkt:'दिल्ली नरेला',badge:'mb-high',bt:'Short',note:''},
+  {crop:'उड़द दाल',en:'Urad Dal',price:6200,unit:'₹/q',chg:'+150',dir:'up',mkt:'MP/UP Belt',badge:'',bt:'',note:''},
+  {crop:'कपास',en:'Cotton',price:6800,unit:'₹/q',chg:'+200',dir:'up',mkt:'सिरसा',badge:'mb-msp',bt:'MSP ₹7121',note:''},
+  {crop:'तिल',en:'Sesame',price:14200,unit:'₹/q',chg:'+600',dir:'up',mkt:'जोधपुर',badge:'mb-high',bt:'Export',note:''},
+  {crop:'शहद',en:'Honey',price:280,unit:'₹/kg',chg:'+15',dir:'up',mkt:'मुरैना',badge:'mb-high',bt:'Quality',note:''},
+  {crop:'अमरूद',en:'Guava',price:1800,unit:'₹/q',chg:'+100',dir:'up',mkt:'रामपुर रोड',badge:'mb-high',bt:'Peak',note:''},
+  {crop:'आम',en:'Mango',price:3200,unit:'₹/q',chg:'+500',dir:'up',mkt:'मुरादाबाद',badge:'mb-high',bt:'Season',note:'Dasheri, Langra'},
+  {crop:'चना',en:'Chickpea',price:5400,unit:'₹/q',chg:'-120',dir:'dn',mkt:'इंदौर / आगरा',badge:'mb-msp',bt:'MSP ₹5440',note:'Below MSP'},
+  {crop:'गेंदा',en:'Marigold',price:4200,unit:'₹/q',chg:'+800',dir:'up',mkt:'बंगलौर / पुणे',badge:'mb-high',bt:'Wedding',note:''},
+];
+
+const MSP_DATA = [
+  {crop:'गेहूं / Wheat',v:'₹2,275/q',y:'Rabi 2024-25'},
+  {crop:'धान / Paddy',v:'₹2,300/q',y:'Kharif 2024-25'},
+  {crop:'मक्का / Maize',v:'₹1,962/q',y:'Kharif 2024-25'},
+  {crop:'गन्ना FRP',v:'₹355/q',y:'Central 2025-26'},
+  {crop:'गन्ना SAP',v:'₹405/q (Early)',y:'Uttarakhand 2025-26'},
+  {crop:'सरसों / Mustard',v:'₹5,650/q',y:'Rabi 2024-25'},
+  {crop:'अरहर / Arhar',v:'₹7,000/q',y:'Kharif 2024-25'},
+  {crop:'मूंग / Moong',v:'₹8,682/q',y:'Kharif 2024-25'},
+  {crop:'मूंगफली / Groundnut',v:'₹6,783/q',y:'Kharif 2024-25'},
+  {crop:'सोयाबीन / Soybean',v:'₹4,892/q',y:'Kharif 2024-25'},
+];
+
+const DISEASE_DATA = [
+  {sev:'h',name:'गन्ने का लाल सड़न रोग',en:'Red Rot of Sugarcane',crop:'गन्ना',desc:'Co-0238 किस्म में सबसे ज़्यादा। तने के अंदर लाल रंग + सफेद धब्बे। गदरपुर, बाज़पुर, काशीपुर block में active।',fix:'तुरंत उखाड़ें। Carbendazim 0.1% से seed set treat करें। Co-0118 या CoShe 17231 किस्म लगाएं।',src:'KVK काशीपुर · GBPUAT पंतनगर · May 2026'},
+  {sev:'h',name:'धान का भूरा माहू (BPH)',en:'Brown Plant Hopper',crop:'धान',desc:'Nursery में गोलाकार भूरे धब्बे। High humidity + घनी रोपाई में फैलता है।',fix:'खेत से 3-5 दिन पानी निकालें। Buprofezin 25SC 1ml/L spray। ज़्यादा Urea न दें।',src:'ICAR लखनऊ · Terai Belt'},
+  {sev:'m',name:'मक्का की सैनिक सूंडी',en:'Fall Army Worm',crop:'मक्का',desc:'Young maize के whorl के अंदर से खाती है। मेरठ, हापुड़ में detected।',fix:'20 पौधे/एकड़ check करें। 15%+ नुकसान पर Emamectin Benzoate 5SG 0.4g/L spray।',src:'ICAR मोदीपुरम · मेरठ Division'},
+  {sev:'m',name:'गेहूं का पीला रतुआ',en:'Yellow Rust',crop:'गेहूं',desc:'पत्तियों पर पीली-नारंगी धारियां। ठंडे humid मौसम में बढ़ता है।',fix:'Propiconazole 25EC 0.1% spray। HD-3086, HD-2967 resistant varieties।',src:'ICAR IIWBR करनाल'},
+  {sev:'l',name:'टमाटर का पत्ती मरोड़',en:'Tomato Leaf Curl',crop:'टमाटर',desc:'Whitefly से फैलता है। पत्तियाँ ऊपर मुड़ जाती हैं। हल्द्वानी क्षेत्र में।',fix:'Yellow sticky traps। Imidacloprid 0.5ml/L। Pusa Ruby variety।',src:'VPKAS अल्मोड़ा'},
+];
+
+const ADVISORY_DATA = [
+  {ico:'🎋',name:'गन्ना',en:'Sugarcane',stage:'वानस्पतिक अवस्था',points:['Top borer और Early shoot borer की निगरानी करें — प्रति सप्ताह खेत देखें','Urea की top dressing करें — 30 kg/acre इस समय','Earthing up (मिट्टी चढ़ाना) करें जहाँ नहीं हुई','जल निकास का ध्यान रखें — waterlogging से red rot बढ़ता है','CoShe 17231 (Bismil) नई variety — red rot resistant, 86 t/ha']},
+  {ico:'🌾',name:'धान',en:'Paddy',stage:'Nursery तैयारी',points:['June 15 - July 10: Transplanting window खुलेगी','Nursery: बाज़पुर में June 1-10 के बीच nursery डालें','Seed treatment: Carbendazim 2g/kg + Trichoderma 4g/kg','Variety: Pusa 1509, 1121 (Basmati) · MTU 7029 (Common)','BPH के लिए: ज़्यादा Urea न दें, 25cm spacing रखें']},
+  {ico:'🌿',name:'गेहूं',en:'Wheat',stage:'Post-harvest',points:['Grain को 12% moisture से कम पर store करें','Residue management: zero-till से अगली wheat बोएं','अगला season: HD-3086, DBW-222 — rust resistant varieties','Storage: परमालोन spray करें warehouses में','October के बाद अगला season शुरू होगा']},
+  {ico:'🌽',name:'मक्का',en:'Maize',stage:'सोने की तैयारी',points:['June-July: Kharif sowing window — जल्दी तैयारी करें','Hybrid variety: DEKALB 9108+, Vivek-9 — KVK recommended','Fall Army Worm: Emamectin Benzoate तैयार रखें','Paddy ban के बाद excellent alternative — KVK demonstration 1200 t/day industrial demand','Spacing: 60×20cm, fertilizer: DAP 50kg + Urea 40kg']},
+  {ico:'🥭',name:'आम / लीची',en:'Mango/Litchi',stage:'फल अवस्था',points:['Fruit fly: Pheromone traps अभी लगाएं','Mealybug / Hopper: Imidacloprid spray at new flush','Harvesting: Dehradun क्षेत्र में June-July window','Post-harvest: temperature-controlled storage','Export quality: chemical residue levels check करें']},
+];
+
+const SCHEME_DATA = [
+  {name:'PM-KISAN सम्मान निधि',benefit:'₹6,000/year',who:'Small & marginal farmers with land',how:'pmkisan.gov.in · CSC Centre · Bank',dl:'Open all year',c:'sc-green'},
+  {name:'PM Fasal Bima (PMFBY)',benefit:'Full crop loss · 2% premium',who:'All farmers with notified crops',how:'pmfby.gov.in · Bank · 14447',dl:'Kharif: June 30',c:'sc-blue'},
+  {name:'Kisan Credit Card (KCC)',benefit:'₹5 lakh @ 4% interest',who:'All farmers, fishers, dairy',how:'Nearest bank / cooperative',dl:'Any time',c:'sc-gold'},
+  {name:'PMKSY Drip Irrigation',benefit:'90% subsidy for small farmers',who:'All farmers — priority small/marginal',how:'District Horticulture Dept',dl:'Check district',c:'sc-blue'},
+  {name:'SMAM Farm Machinery',benefit:'SC/ST: 50% · Others: 40%',who:'Individual farmers + CHC',how:'agrimachinery.nic.in',dl:'Rolling basis',c:'sc-gold'},
+  {name:'UK Sugarcane SAP ₹405',benefit:'₹405/q early · ₹395 general',who:'All sugarcane farmers in Uttarakhand',how:'Register at local sugar mill',dl:'2025-26 crushing season',c:'sc-green'},
+  {name:'PKVY Organic Farming',benefit:'₹50,000/hectare over 3 years',who:'Min 20 farmers, 50 acre cluster',how:'State Agri Dept · KVK',dl:'State notification',c:'sc-green'},
+  {name:'PM-KUSUM Solar Pump',benefit:'90% subsidy on solar pumps',who:'Individual farmers with land',how:'State energy/agri dept',dl:'State-wise',c:'sc-gold'},
+];
+
+const STORY_DATA = [
+  {ico:'🎋',name:'Sartaj Khan',reg:'Shahjahanpur, UP',crop:'Sugarcane',impact:'₹1 Cr+ from 50 acres',headline:'Co-0238 की मुश्किलों से ₹1 करोड़ तक का सफर',body:'Disease-resistant Co-13235 और Co-0118 किस्म अपनाई। Trench planting, intercropping (सरसों + फूलगोभी)। Shahid Farms अब सैकड़ों किसानों का knowledge hub है।',lesson:'सही किस्म + intercropping = same ज़मीन पर double income'},
+  {ico:'🌾',name:'Narendra Singh Mehra',reg:'Nainital, Uttarakhand',crop:'Organic Wheat + Sugarcane',impact:'₹14 lakh on 3 hectares',headline:'Organic farming ने input cost 90% घटाई',body:'Chemical farming में घाटा था। Organic switch किया। Narendra-09 wheat variety खुद develop की। Uttarakhand में black rice introduce किया।',lesson:'Organic = input cost 90% कम। हर साल ज़मीन बेहतर होती जाती है'},
+  {ico:'🌸',name:'Kanchan Verma',reg:'Narmadapuram, MP',crop:'Turmeric (Organic)',impact:'Income doubled per acre',headline:'गेहूं ₹1.5L/acre → हल्दी ₹3L/acre',body:'TV show देखकर organic haldi की तरफ switch किया। Same ज़मीन, same मेहनत — double income। अब district में women farmers को inspire कर रही हैं।',lesson:'एक फसल बदलने से income double हो सकती है'},
+];
+
+const PEST_DATA = [
+  {type:'pt-org',tl:'जैविक',name:'Neem Oil (Azadirachtin)',ai:'Azadirachtin 1500ppm',use:'Aphids, whitefly, mealybug के लिए। Bees के लिए safe। Early infestation best।',dose:'5ml/L पानी + soap drops',warn:'Copper compounds के साथ mix न करें। शाम को spray करें।'},
+  {type:'pt-bio',tl:'Biocontrol',name:'Trichoderma viride',ai:'T. viride 1.5% WP',use:'Soil fungicide। Fusarium, damping off, root rot। Soil health improve।',dose:'4-5g/kg seed या 1kg/acre soil',warn:'Chemical fungicide के 15 दिन बाद लगाएं।'},
+  {type:'pt-chem',tl:'Chemical',name:'Carbendazim 50% WP',ai:'Carbendazim (MBC)',use:'Red Rot (गन्ना), blast (धान), wilt diseases।',dose:'1g/L पानी · Seed: 2g/kg',warn:'PHI 15 दिन। Season में 3 बार से ज़्यादा नहीं।'},
+  {type:'pt-chem',tl:'Chemical',name:'Imidacloprid 17.8 SL',ai:'Imidacloprid (Neonicotinoid)',use:'BPH (rice), thrips, whitefly। Systemic action।',dose:'0.5ml/L foliar',warn:'⚠️ Bees के लिए toxic। Flowering में spray न करें। PHI 21 दिन।'},
+  {type:'pt-chem',tl:'Chemical',name:'Emamectin Benzoate 5% SG',ai:'Emamectin Benzoate',use:'Fall Army Worm (Maize), stem borers। Translaminar।',dose:'0.4g/L पानी',warn:'PHI 14 दिन। पानी के पास spray न करें। Full PPE पहनें।'},
+  {type:'pt-org',tl:'जैविक',name:'Bordeaux Mixture',ai:'CuSO4 + Lime (1:1)',use:'Late Blight, Red Rust, Downy Mildew। Traditional। Safe।',dose:'2g CuSO4 + 2g lime/litre',warn:'गर्म मौसम में phytotoxicity हो सकती है।'},
+];
+
+const MACH_DATA = [
+  {ico:'🚜',cat:'Tillage',name:'Rotavator',h:'रोटावेटर',desc:'One pass में seedbed तैयार। Crop residue mix। Paddy field में 60% time बचाता है।',price:'₹1.2–2.5 lakh',sub:'40-50% SMAM subsidy'},
+  {ico:'🌱',cat:'Sowing',name:'Zero Till Drill',h:'ज़ीरो टिल ड्रिल',desc:'Paddy stubble में wheat बोएं। ₹3,000-4,000/acre tillage cost बचती है। Stubble burning कम।',price:'₹80,000–1.4 lakh',sub:'50% for small/marginal'},
+  {ico:'💧',cat:'Irrigation',name:'Drip Irrigation',h:'ड्रिप सिंचाई',desc:'40-60% पानी बचाता है। Fertigation possible। Sugarcane + Orchard के लिए excellent।',price:'₹35,000–50,000/acre',sub:'90% subsidy small farmers'},
+  {ico:'🌿',cat:'Harvest',name:'Combine Harvester',h:'कम्बाइन हार्वेस्टर',desc:'Harvest + thresh एक साथ। Loss 5-7% से <1%। Custom hire: ₹800-1,200/bigha।',price:'₹18–25 lakh',sub:'Custom hire CHC available'},
+  {ico:'💨',cat:'Spray',name:'Power Sprayer / Drone',h:'पावर स्प्रेयर',desc:'1-2 acres/hour। Drone hire ₹500-800/acre। 30% pesticide बचता है।',price:'₹8,000–25,000',sub:'SMAM + UK drone subsidy'},
+];
+
+const GLOBAL_DATA = [
+  {flag:'🇳🇱',country:'Netherlands',hl:'India की 1/270वीं जगह में दुनिया के 2nd biggest food exporter',insight:'Precision drip irrigation: 60% पानी बचाता है। Automated greenhouses। एक Dutch greenhouse = 10 Indian farms का output।',lesson:'PMKSY drip subsidy: 90% for small farmers'},
+  {flag:'🇮🇱',country:'Israel',hl:'रेगिस्तान में टमाटर — लगभग बिना बारिश के',insight:'Drip irrigation यहीं invent हुई। 95% farms पर। Fertigation: water में fertilizer dissolve — कोई manual application नहीं।',lesson:'PMKSY drip subsidy — district horticulture office में apply करें'},
+  {flag:'🇯🇵',country:'Japan',hl:'Robot Rice Farming — 80% कम labor',insight:'Average Japanese farmer 68 साल का है। Solution: GPS robots, drone spraying हर paddy field पर, satellite yield monitoring।',lesson:'India drone spraying subsidy — Udyan Vibhag, state portal check करें'},
+  {flag:'🇰🇪',country:'Kenya',hl:'Mobile Money ने 1 करोड़ किसानों की बिक्री बदल दी',insight:'M-Pesa से instant payment on sale, phone से loan। Crop disease apps (जैसे Madhoganj) के 30 lakh+ users East Africa में।',lesson:'UPI payment coming soon to Madhoganj'},
+];
+
+const ANIMAL_DATA = [
+  {ico:'🐄',name:'Foot & Mouth Disease',h:'खुरपका-मुंहपका',animal:'Cattle/Buffalo',sev:'h',sym:'मुँह, पैर, जीभ में छाले। लार टपकना। लंगड़ाना। बुखार 104°F+।',tx:'Cure नहीं — हर 6 महीने vaccine। तुरंत अलग करें। Virkon-S disinfectant। Report: 1962।'},
+  {ico:'🐄',name:'Mastitis',h:'थनैला रोग',animal:'Dairy Cattle',sev:'h',sym:'थन गर्म, सूजन। दूध में clots/blood। Yield कम। खाना बंद।',tx:'3-4× daily milking। Intramammary antibiotic (vet से)। Iodine teat dip।'},
+  {ico:'🐔',name:'Ranikhet Disease',h:'रानीखेत',animal:'Poultry',sev:'h',sym:'अचानक मौत। हरा diarrhoea। गर्दन twisted। खाना बंद।',tx:'Cure नहीं। R2B vaccine at 8, 28, 56 days। Biosecurity critical।'},
+  {ico:'🐐',name:'PPR — Goat Plague',h:'बकरियों की महामारी',animal:'Goat/Sheep',sev:'h',sym:'बुखार, नाक बहना, मुँह के छाले, diarrhoea।',tx:'PPR vaccine preventive। Isolate infected। 1962 report।'},
+];
+
+const MOVEMENT_DATA = [
+  {status:'active',title:'MSP Legal Guarantee — National',org:'SKM, BKU, AIKSCC Coalition',loc:'Delhi borders, Haryana, Punjab, UP',date:'2025 (ongoing)',desc:'Legal guarantee for MSP on all crops। Debt waiver। Periodic road blockades in Haryana और Punjab।',demands:['Legal MSP guarantee for 23 crops','Complete farm loan waiver','Justice for Lakhimpur Kheri victims']},
+  {status:'active',title:'Sugarcane SAP Arrears — UP/UK',org:'Bharatiya Kisan Union (BKU) — Tikait faction',loc:'Meerut, Muzaffarnagar, USN',date:'Apr-May 2026',desc:'Sugar mills owe unpaid SAP dues। BKU threatening mill blockades अगर dues June से पहले नहीं मिले।',demands:['15 दिन में SAP arrears clear','2025-26 season SAP raise','Defaulting mills पर action']},
+  {status:'planned',title:'Paddy Double-Farming Ban Protest — USN',org:'Bhartiya Kisan Sangh — USN Chapter',loc:'बाज़पुर, रुद्रपुर, गदरपुर',date:'July 2026',desc:'Summer paddy ban के खिलाफ mela planned। Alternative crop MSP support और compensation demand।',demands:['Lost income compensation','Maize/Sugarcane as paddy alternatives — MSP support','Free seed kits for diversification']},
+];
+
+const RADAR_RINGS_DATA = [
+  {dist:'5 km',crops:['🎋 गन्ना (बहुत)','🌾 धान (medium)','🌽 मक्का (थोड़ा)'],alert:'⚠️ Red Rot alert — 2 खेतों में'},
+  {dist:'10 km',crops:['🎋 गन्ना (ज़्यादा)','🌾 बासमती धान','🥭 आम के बाग','🧅 प्याज़'],alert:''},
+  {dist:'25 km',crops:['🌾 Common Paddy','🌿 गेहूं','🎋 गन्ना','🥔 आलू','🍅 टमाटर'],alert:'⚠️ Fall Army Worm — Meerut से approaching'},
+];
+
+const MORE_MENU = [
+  {id:'pesticides',ico:'🧪',title:'कीटनाशक गाइड',sub:'8 pesticides · Organic first · PHI warnings'},
+  {id:'schemes',ico:'🏛',title:'सरकारी योजनाएं',sub:'8 central + state schemes · Deadlines + portals'},
+  {id:'stories',ico:'🌟',title:'किसान कहानियां',sub:'Real success stories from USN / UP / UK'},
+  {id:'machinery',ico:'🚜',title:'मशीनरी',sub:'Farm implements · Subsidy info · Cost'},
+  {id:'global',ico:'🌍',title:'Global Farming',sub:'Netherlands · Israel · Japan · Kenya'},
+  {id:'animal',ico:'🐄',title:'पशुपालन',sub:'Disease alerts · Cattle · Poultry · Fish'},
+  {id:'movements',ico:'✊',title:'किसान आंदोलन',sub:'Active movements · Demands · Organisations'},
+  {id:'upload',ico:'📤',title:'Upload / Share',sub:'Photos · Questions · Success stories'},
+  {id:'terms',ico:'📄',title:'Disclaimer / Terms',sub:'14 sections · Hindi + English · Full legal'},
+];
+
+// ════ STATE ════
+let currentCity = 'bazpur';
+let currentLang = 'hi';
+let currentScreen = 'home';
+
+// ════ THEME ════
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isDark ? '☀' : '🌙';
+}
+
+// ════ SCREEN NAVIGATION ════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('screen-' + id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+    currentScreen = id;
+  }
+  // Sync bottom nav
+  setActive('bn-' + (id === 'home' ? 'home' : id === 'weather' ? 'weather' : id === 'prices' ? 'prices' : id === 'waitlist' ? 'waitlist' : 'more'));
+}
+
+function setActive(id) {
+  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+// ════ LANGUAGE ════
+const LANG_STRINGS = {
+  hi:{w:'मौसम',p:'मंडी भाव',d:'फसल डॉक्टर',r:'मेरे आस-पास',a:'सलाह',h:'मदद',
+      ws:'Weather · 7 दिन',ps:'Mandi Prices',ds:'Disease · Advice',rs:'आपके आसपास क्या?',as:'GBPUAT Advisory',hs:'KVK · Schemes · Help',
+      wa:'<span>💬</span> WhatsApp पर Register करें — Free',mb:'<span>📚</span> और जानकारी ›',fb:'✉ सुझाव',
+      bt:'BETA — 7 FREE diagnoses · हर हफ्ते नए features · Multimodal Voice/Video जल्दी',
+      bn:['Home','मौसम','भाव','Register','और']},
+  en:{w:'Weather',p:'Prices',d:'Crop Doctor',r:'Around Me',a:'Advisory',h:'Help',
+      ws:'Live · 7 days',ps:"Today's Rates",ds:'Disease · Treatment',rs:"What's near you?",as:'GBPUAT Advisory',hs:'KVK · Schemes · Help',
+      wa:'<span>💬</span> Register on WhatsApp — Free',mb:'<span>📚</span> More Info ›',fb:'✉ Feedback',
+      bt:'BETA — 7 FREE diagnoses · New features weekly · Voice/Video coming soon',
+      bn:['Home','Weather','Prices','Register','More']},
+  pa:{w:'ਮੌਸਮ',p:'ਮੰਡੀ ਭਾਅ',d:'ਫਸਲ ਡਾਕਟਰ',r:'ਮੇਰੇ ਆਲੇ-ਦੁਆਲੇ',a:'ਸਲਾਹ',h:'ਮਦਦ',
+      ws:'ਮੌਸਮ · 7 ਦਿਨ',ps:'ਮੰਡੀ ਭਾਅ',ds:'ਬਿਮਾਰੀ · ਇਲਾਜ',rs:'ਆਲੇ-ਦੁਆਲੇ ਕੀ?',as:'GBPUAT ਸਲਾਹ',hs:'KVK · ਸਕੀਮਾਂ · ਮਦਦ',
+      wa:'<span>💬</span> WhatsApp ਤੇ Register ਕਰੋ — ਮੁਫਤ',mb:'<span>📚</span> ਹੋਰ ਜਾਣਕਾਰੀ ›',fb:'✉ ਸੁਝਾਅ',
+      bt:'BETA — 7 ਮੁਫਤ diagnoses · ਹਰ ਹਫਤੇ ਨਵੇਂ features',
+      bn:['Home','ਮੌਸਮ','ਭਾਅ','Register','ਹੋਰ']},
+  ha:{w:'मौसम',p:'मंडी भाव',d:'फसल डॉक्टर',r:'मेरे आस-पास',a:'सलाह',h:'मदद',
+      ws:'मौसम · 7 दिन',ps:'मंडी भाव',ds:'बीमारी · दवाई',rs:'पड़ोस में क्या सै?',as:'GBPUAT सलाह',hs:'KVK · योजना · मदद',
+      wa:'<span>💬</span> WhatsApp पै Register करो — मुफ्त',mb:'<span>📚</span> और जाणकारी ›',fb:'✉ सुझाव',
+      bt:'BETA — 7 FREE diagnoses · हर हफ्ते नए features',
+      bn:['Home','मौसम','भाव','Register','और']},
+  ur:{w:'موسم',p:'منڈی بھاؤ',d:'فصل ڈاکٹر',r:'میرے آس پاس',a:'مشورہ',h:'مدد',
+      ws:'موسم · 7 دن',ps:'منڈی بھاؤ',ds:'بیماری · علاج',rs:'آس پاس کیا ہے؟',as:'GBPUAT مشورہ',hs:'KVK · اسکیمیں · مدد',
+      wa:'<span>💬</span> WhatsApp پر Register کریں — مفت',mb:'<span>📚</span> مزید معلومات ›',fb:'✉ تجویز',
+      bt:'BETA — 7 مفت diagnoses · ہر ہفتے نئے features',
+      bn:['Home','موسم','بھاؤ','Register','مزید']},
+};
+
+function switchLang(lang) {
+  currentLang = lang;
+  document.documentElement.setAttribute('lang', lang === 'ur' ? 'ur' : 'hi');
+  document.body.style.direction = lang === 'ur' ? 'rtl' : 'ltr';
+  const s = LANG_STRINGS[lang] || LANG_STRINGS.hi;
+  const m = {weather:'w',prices:'p',doctor:'d',radar:'r',advice:'a',help:'h'};
+  Object.entries(m).forEach(([k,v]) => {
+    const t = document.querySelector('.hc-'+k+' .hc-title');
+    const sub = document.querySelector('.hc-'+k+' .hc-sub');
+    if(t) t.textContent = s[v];
+    if(sub) sub.textContent = s[v+'s'];
+  });
+  const wb = document.querySelector('.hwl-btn');
+  if(wb) wb.innerHTML = s.wa;
+  const mb = document.querySelector('#screen-home button[onclick*="more"]');
+  if(mb) mb.innerHTML = s.mb;
+  const fab = document.querySelector('.feedback-fab');
+  if(fab) fab.textContent = s.fb;
+  const beta = document.querySelector('.beta-banner-txt');
+  if(beta) beta.textContent = s.bt;
+  ['bn-home','bn-weather','bn-prices','bn-waitlist','bn-more'].forEach((id,i) => {
+    const el = document.querySelector('#'+id+' .bn-lbl');
+    if(el && s.bn[i]) el.textContent = s.bn[i];
+  });
+}
+
+// ════ LIVE WEATHER — OPEN-METEO ════
+async function fetchWeather(cityKey) {
+  const cfg = WX_CITIES[cityKey] || WX_CITIES.bazpur;
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cfg.lat}&longitude=${cfg.lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,weather_code,apparent_temperature&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code&timezone=Asia%2FKolkata&forecast_days=7`;
+    const r = await fetch(url);
+    const d = await r.json();
+    const c = d.current;
+    const code = c.weather_code;
+    const ico = WX_CODE[code] || '🌤';
+    const desc = WX_DESC[code] || 'आंशिक बादल';
+
+    // Home strip
+    const hTemp = document.getElementById('hws-temp');
+    const hDesc = document.getElementById('hws-desc');
+    const hIco = document.getElementById('hws-ico');
+    const hSpray = document.getElementById('hws-spray');
+    const hRain = document.getElementById('hws-rain');
+    if (hTemp) hTemp.textContent = Math.round(c.temperature_2m) + '°';
+    if (hDesc) hDesc.textContent = ico + ' ' + desc;
+    if (hIco) hIco.textContent = ico;
+    const sprayOk = c.precipitation < 1 && c.wind_speed_10m < 20;
+    if (hSpray) {
+      hSpray.textContent = sprayOk ? '✅ Spray OK' : '❌ Spray रोकें';
+      hSpray.className = 'hws-spray ' + (sprayOk ? 'spray-ok' : 'spray-wait');
+    }
+    if (hRain) hRain.textContent = `💧 ${c.precipitation}mm · 💨 ${Math.round(c.wind_speed_10m)}km/h`;
+
+    // Weather screen
+    const wt = document.getElementById('wxBigTemp');
+    const wd = document.getElementById('wxBigDesc');
+    const ws = document.getElementById('wxStats');
+    if (wt) wt.textContent = Math.round(c.temperature_2m) + '°C';
+    if (wd) wd.textContent = ico + ' ' + desc + ' · Feels ' + Math.round(c.apparent_temperature) + '°C';
+    if (ws) ws.innerHTML =
+      wxStat(c.relative_humidity_2m + '%', 'आर्द्रता') +
+      wxStat(Math.round(c.wind_speed_10m) + ' km/h', 'हवा') +
+      wxStat(c.precipitation + ' mm', 'बारिश');
+
+    // Alert
+    const wa = document.getElementById('wxAlert');
+    const wat = document.getElementById('wxAlertTxt');
+    if (wa && wat) { wa.style.display = 'flex'; wat.textContent = cfg.alert; }
+
+    // 7-day forecast
+    const fs = document.getElementById('forecast7day');
+    if (fs && d.daily) {
+      const days = ['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'];
+      const today = new Date().getDay();
+      fs.innerHTML = '';
+      d.daily.time.forEach((t, i) => {
+        const dayIco = WX_CODE[d.daily.weather_code[i]] || '🌤';
+        const spray = d.daily.precipitation_sum[i] < 2;
+        fs.innerHTML += `<div class="fc-day">
+          <div class="fc-lbl">${i === 0 ? 'आज' : days[(today+i)%7]}</div>
+          <span class="fc-ico">${dayIco}</span>
+          <div class="fc-tmp">${Math.round(d.daily.temperature_2m_max[i])}°</div>
+          <div class="fc-rain">${Math.round(d.daily.precipitation_sum[i])}mm</div>
+          <span class="fc-spray ${spray ? 'fs-ok' : 'fs-no'}">${spray ? 'Spray ✓' : 'Rain ✗'}</span>
+        </div>`;
+      });
+    }
+
+    // Farming advisory
+    const fa = document.getElementById('farmingAdvisory');
+    if (fa) {
+      const humid = c.relative_humidity_2m > 70;
+      const rain = c.precipitation > 2;
+      fa.innerHTML = '';
+      const advs = [
+        {ico:'💧',lbl:'सिंचाई',lc:'var(--sky)',txt:rain?'बारिश हो रही है — सिंचाई न करें':'अगले 2 दिन drip/furrow के लिए अच्छे हैं'},
+        {ico:'🌱',lbl:'Spray Window',lc:sprayOk?'var(--leaf)':'var(--red)',txt:sprayOk?'✅ अभी spray कर सकते हैं':'❌ हवा ज़्यादा है — spray रोकें'},
+        {ico:'🐛',lbl:'Pest Alert',lc:'var(--wheat)',txt:humid?'⚠️ High humidity: BPH और Blast का खतरा बढ़ा है':'Normal — weekly scouting जारी रखें'},
+        {ico:'☀️',lbl:'Drying / Harvest',lc:'var(--gold)',txt:rain?'बारिश — grain drying रोकें':'Clear window — grain सुखाने का अच्छा time'},
+      ];
+      advs.forEach(a => {
+        fa.innerHTML += `<div class="adv-card">
+          <div class="adv-ico">${a.ico}</div>
+          <div><div class="adv-label" style="color:${a.lc}">${a.lbl}</div><div class="adv-body">${a.txt}</div></div>
+        </div>`;
+      });
+    }
+
+  } catch (e) {
+    const el = document.getElementById('hws-desc');
+    if (el) el.textContent = 'मौसम load नहीं हो पाया। Internet check करें।';
+  }
+}
+
+function wxStat(val, lbl) {
+  return `<div class="wx-stat"><div class="wx-stat-val">${val}</div><div class="wx-stat-lbl">${lbl}</div></div>`;
+}
+
+// ════ CITY SWITCHER ════
+function buildCitySwitcher() {
+  const ct = document.getElementById('citySwitcher');
+  if (!ct) return;
+  ct.innerHTML = '';
+  Object.entries(WX_CITIES).forEach(([key, v]) => {
+    const btn = document.createElement('button');
+    btn.style.cssText = `font-family:var(--hindi);font-size:12px;padding:7px 12px;border-radius:8px;border:1.5px solid var(--border2);background:${key===currentCity?'var(--leaf-deep)':'var(--card)'};color:${key===currentCity?'#fff':'var(--txt2)'};cursor:pointer;`;
+    btn.textContent = v.name;
+    btn.onclick = () => {
+      currentCity = key;
+      fetchWeather(key);
+      buildCitySwitcher();
+    };
+    ct.appendChild(btn);
+  });
+}
+
+// ════ RENDER MANDI ════
+function renderMandi() {
+  document.getElementById('priceDate').textContent =
+    'As of ' + new Date().toLocaleDateString('hi-IN', {day:'numeric',month:'long',year:'numeric'}) + ' · Source: Agmarknet / eNAM (indicative)';
+  const g = document.getElementById('mandiList');
+  if (!g) return;
+  g.innerHTML = '';
+  MANDI_DATA.forEach(m => {
+    g.innerHTML += `<div class="mandi-card">
+      ${m.badge ? `<span class="mc-badge ${m.badge}">${m.bt}</span>` : ''}
+      <div class="mc-left">
+        <div class="mc-crop">${m.crop}</div>
+        <div class="mc-hindi en" style="font-size:11px;color:var(--txt3);">${m.en}</div>
+        <div class="mc-market">📍 ${m.mkt}</div>
+        ${m.note ? `<div class="mc-note">${m.note}</div>` : ''}
+      </div>
+      <div class="mc-right">
+        <div class="mc-price">${m.price.toLocaleString('en-IN')}</div>
+        <div class="mc-unit">${m.unit}</div>
+        <div class="mc-chg ${m.dir === 'up' ? 'mc-up' : 'mc-dn'}">${m.dir==='up'?'▲':'▼'} ${m.chg}</div>
+      </div>
+    </div>`;
+  });
+  const mg = document.getElementById('mspList');
+  if (!mg) return;
+  mg.innerHTML = '';
+  MSP_DATA.forEach(m => {
+    mg.innerHTML += `<div class="card2" style="display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-family:var(--hindi);font-size:14px;color:var(--txt);">${m.crop}</div><div style="font-family:var(--sans);font-size:10px;color:var(--txt3);">${m.y}</div></div>
+      <div style="font-family:var(--serif);font-size:20px;color:var(--wheat);">${m.v}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER DISEASES ════
+function renderDiseases() {
+  const g = document.getElementById('diseaseAlerts');
+  if (!g) return;
+  g.innerHTML = '';
+  DISEASE_DATA.forEach(d => {
+    const cls = d.sev==='h'?'dis-bar-h':d.sev==='m'?'dis-bar-m':'dis-bar-l';
+    const tc = d.sev==='h'?'dt-high':d.sev==='m'?'dt-med':'dt-low';
+    const tl = d.sev==='h'?'⚠ HIGH':d.sev==='m'?'◆ MEDIUM':'● LOW';
+    g.innerHTML += `<div class="dis-card">
+      <div class="${cls}"></div>
+      <div class="dis-body">
+        <div class="dis-top">
+          <span class="dis-name">${d.name}</span>
+          <span class="dis-tag ${tc}">${d.crop}</span>
+          <span class="dis-tag ${tc}">${tl}</span>
+        </div>
+        <div style="font-family:var(--sans);font-size:10px;color:var(--txt3);margin-bottom:5px;">${d.en}</div>
+        <div class="dis-desc">${d.desc}</div>
+        <div class="dis-fix">→ ${d.fix}</div>
+        <div class="dis-src">${d.src}</div>
+      </div>
+    </div>`;
+  });
+}
+
+// ════ RENDER ADVISORY ════
+function renderAdvisory() {
+  const g = document.getElementById('advisoryCards');
+  if (!g) return;
+  g.innerHTML = '';
+  ADVISORY_DATA.forEach((a, idx) => {
+    const pts = a.points.map(p => `<div class="cac-point"><span class="cac-dot">●</span>${p}</div>`).join('');
+    g.innerHTML += `<div class="crop-adv-card">
+      <div class="cac-header" onclick="toggleAdv(${idx})">
+        <span class="cac-ico">${a.ico}</span>
+        <span class="cac-name">${a.name}</span>
+        <span class="cac-stage">${a.stage}</span>
+        <span class="cac-arrow" id="adv-arrow-${idx}">›</span>
+      </div>
+      <div class="cac-body" id="adv-body-${idx}">
+        ${pts}
+        <div class="cac-src">Source: GBPUAT पंतनगर Agromet Bulletin · KVK USN · May 2026</div>
+      </div>
+    </div>`;
+  });
+}
+
+function toggleAdv(idx) {
+  const body = document.getElementById('adv-body-' + idx);
+  const arrow = document.getElementById('adv-arrow-' + idx);
+  if (!body) return;
+  body.classList.toggle('open');
+  if (arrow) arrow.classList.toggle('open');
+}
+
+// ════ RENDER RADAR RINGS ════
+function renderRadar() {
+  const g = document.getElementById('radarRings');
+  if (!g) return;
+  g.innerHTML = '';
+  RADAR_RINGS_DATA.forEach(r => {
+    const crops = r.crops.map(c => `<span class="rr-crop">${c}</span>`).join('');
+    const alert = r.alert ? `<div style="font-family:var(--hindi);font-size:11.5px;color:var(--red);margin-top:6px;">${r.alert}</div>` : '';
+    g.innerHTML += `<div class="radar-ring-row">
+      <span class="rr-dist">${r.dist}</span>
+      <div style="flex:1;"><div class="rr-crops">${crops}</div>${alert}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER HELP SCHEMES ════
+function renderHelpSchemes() {
+  const g = document.getElementById('helpSchemes');
+  if (!g) return;
+  g.innerHTML = '';
+  SCHEME_DATA.slice(0, 4).forEach(s => {
+    g.innerHTML += `<div class="scheme-card ${s.c}">
+      <div class="scheme-name">${s.name}</div>
+      <div class="scheme-benefit">${s.benefit}</div>
+      <div class="scheme-row"><b>कौन:</b> ${s.who}</div>
+      <div class="scheme-row"><b>कैसे:</b> ${s.how}</div>
+      <div class="scheme-row" style="color:var(--red);"><b>Deadline:</b> ${s.dl}</div>
+    </div>`;
+  });
+  g.innerHTML += `<button onclick="showScreen('schemes')" style="width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:10px;padding:12px;font-family:var(--hindi);font-size:14px;color:var(--txt2);cursor:pointer;margin-top:4px;">सभी 8 योजनाएं देखें ›</button>`;
+}
+
+// ════ RENDER SCHEMES FULL ════
+function renderSchemesFull() {
+  const g = document.getElementById('schemeCards');
+  if (!g || g.innerHTML !== '') return;
+  SCHEME_DATA.forEach(s => {
+    g.innerHTML += `<div class="scheme-card ${s.c}">
+      <div class="scheme-name">${s.name}</div>
+      <div class="scheme-benefit">${s.benefit}</div>
+      <div class="scheme-row"><b>कौन:</b> ${s.who}</div>
+      <div class="scheme-row"><b>कैसे:</b> ${s.how}</div>
+      <div class="scheme-row" style="color:var(--red);"><b>Deadline:</b> ${s.dl}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER PESTICIDES ════
+function renderPesticides() {
+  const g = document.getElementById('pesticideCards');
+  if (!g || g.innerHTML !== '') return;
+  const typeMap = {'pt-org':'जैविक','pt-bio':'Biocontrol','pt-chem':'Chemical'};
+  const typeColor = {'pt-org':'var(--leaf-deep)','pt-bio':'var(--sky)','pt-chem':'var(--wheat)'};
+  PEST_DATA.forEach(p => {
+    g.innerHTML += `<div class="card" style="margin-bottom:8px;border-left:4px solid ${typeColor[p.type]};">
+      <div style="display:inline-block;font-family:var(--sans);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:${typeColor[p.type]};padding:2px 8px;border-radius:3px;margin-bottom:8px;">${typeMap[p.type]}</div>
+      <div style="font-family:var(--hindi);font-size:15px;font-weight:700;color:var(--txt);margin-bottom:2px;">${p.name}</div>
+      <div style="font-family:var(--sans);font-size:10px;color:var(--txt3);margin-bottom:8px;">${p.ai}</div>
+      <div style="font-family:var(--hindi);font-size:13px;color:var(--txt2);margin-bottom:7px;">${p.use}</div>
+      <div style="background:var(--card2);padding:7px 10px;border-radius:6px;font-family:var(--sans);font-size:10.5px;color:var(--txt2);margin-bottom:6px;">Dose: <span style="color:var(--wheat);font-weight:600;">${p.dose}</span></div>
+      <div style="font-family:var(--hindi);font-size:11.5px;color:var(--red);">⚠ ${p.warn}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER STORIES ════
+function renderStories() {
+  const g = document.getElementById('storyCards');
+  if (!g || g.innerHTML !== '') return;
+  STORY_DATA.forEach(s => {
+    g.innerHTML += `<div class="story-card">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;">
+        <span style="font-size:28px;">${s.ico}</span>
+        <div style="flex:1;">
+          <div style="font-family:var(--hindi);font-size:16px;font-weight:700;color:var(--txt);">${s.name}</div>
+          <div style="font-family:var(--sans);font-size:10px;color:var(--txt3);">${s.reg} · ${s.crop}</div>
+        </div>
+        <div class="story-impact">${s.impact}</div>
+      </div>
+      <div class="story-headline">"${s.headline}"</div>
+      <div class="story-body">${s.body}</div>
+      <div class="story-lesson">💡 ${s.lesson}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER MACHINERY ════
+function renderMachinery() {
+  const g = document.getElementById('machCards');
+  if (!g || g.innerHTML !== '') return;
+  MACH_DATA.forEach(m => {
+    g.innerHTML += `<div class="card" style="margin-bottom:8px;">
+      <div style="font-size:28px;margin-bottom:8px;">${m.ico}</div>
+      <div style="font-family:var(--sans);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--txt3);margin-bottom:4px;">${m.cat}</div>
+      <div style="font-family:var(--hindi);font-size:16px;font-weight:700;color:var(--txt);margin-bottom:2px;">${m.name}</div>
+      <div style="font-family:var(--hindi);font-size:11px;color:var(--txt3);margin-bottom:8px;">${m.h}</div>
+      <div style="font-family:var(--hindi);font-size:13px;color:var(--txt2);margin-bottom:8px;">${m.desc}</div>
+      <div style="font-family:var(--serif);font-size:18px;color:var(--wheat);">${m.price}</div>
+      <div style="font-family:var(--hindi);font-size:12px;color:var(--leaf);margin-top:4px;">✅ ${m.sub}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER GLOBAL ════
+function renderGlobal() {
+  const g = document.getElementById('globalCards');
+  if (!g || g.innerHTML !== '') return;
+  GLOBAL_DATA.forEach(d => {
+    g.innerHTML += `<div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="font-size:26px;">${d.flag}</span>
+        <div><div style="font-family:var(--hindi);font-size:16px;font-weight:700;color:var(--txt);">${d.country}</div>
+        <div style="font-family:var(--sans);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);">Global Watch</div></div>
+      </div>
+      <div style="font-family:var(--hindi);font-size:14px;font-style:italic;color:var(--leaf-deep);margin-bottom:8px;">"${d.hl}"</div>
+      <div style="font-family:var(--hindi);font-size:13px;color:var(--txt2);line-height:1.7;margin-bottom:8px;">${d.insight}</div>
+      <div style="background:var(--sprout);padding:8px 10px;border-left:3px solid var(--leaf);border-radius:0 7px 7px 0;font-family:var(--hindi);font-size:12.5px;color:var(--leaf-deep);">India lesson: ${d.lesson}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER ANIMALS ════
+function renderAnimals() {
+  const g = document.getElementById('animalCards');
+  if (!g || g.innerHTML !== '') return;
+  ANIMAL_DATA.forEach(a => {
+    const bc = a.sev==='h'?'var(--red)':'var(--gold)';
+    g.innerHTML += `<div class="card" style="border-left:4px solid ${bc};margin-bottom:8px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;">
+        <span style="font-size:22px;">${a.ico}</span>
+        <div style="font-family:var(--hindi);font-size:15px;font-weight:700;color:var(--txt);">${a.name}</div>
+        <span style="font-family:var(--hindi);font-size:11px;color:var(--txt3);">${a.h} · ${a.animal}</span>
+        <span style="font-family:var(--sans);font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;background:${a.sev==='h'?'var(--red-pale)':'var(--gold-pale)'};color:${bc};border-radius:3px;">${a.sev==='h'?'HIGH':'MEDIUM'}</span>
+      </div>
+      <div style="font-family:var(--hindi);font-size:13px;color:var(--txt2);margin-bottom:7px;"><b style="color:var(--txt3);">Symptoms: </b>${a.sym}</div>
+      <div style="background:var(--sprout);padding:8px 10px;border-radius:7px;font-family:var(--hindi);font-size:13px;color:var(--leaf-deep);"><b>Treatment: </b>${a.tx}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER MOVEMENTS ════
+function renderMovements() {
+  const g = document.getElementById('movementCards');
+  if (!g || g.innerHTML !== '') return;
+  const sc = {'active':'var(--red)','resolved':'var(--leaf)','planned':'var(--gold)'};
+  const sl = {'active':'Active','resolved':'Resolved','planned':'Planned'};
+  MOVEMENT_DATA.forEach(m => {
+    const demands = m.demands.map(d => `<div style="font-family:var(--hindi);font-size:12.5px;color:var(--txt2);padding:3px 0;">▶ ${d}</div>`).join('');
+    g.innerHTML += `<div class="card" style="border-left:4px solid ${sc[m.status]};margin-bottom:10px;">
+      <div style="display:inline-block;font-family:var(--sans);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:3px;background:${sc[m.status]}20;color:${sc[m.status]};margin-bottom:8px;">${sl[m.status]} · ${m.date}</div>
+      <div style="font-family:var(--hindi);font-size:16px;font-weight:700;color:var(--txt);margin-bottom:3px;">${m.title}</div>
+      <div style="font-family:var(--sans);font-size:10px;color:var(--leaf);margin-bottom:4px;">${m.org}</div>
+      <div style="font-family:var(--sans);font-size:10px;color:var(--txt3);margin-bottom:8px;">📍 ${m.loc}</div>
+      <div style="font-family:var(--hindi);font-size:13px;color:var(--txt2);line-height:1.65;margin-bottom:8px;">${m.desc}</div>
+      <div style="background:var(--card2);padding:8px 10px;border-radius:7px;">${demands}</div>
+    </div>`;
+  });
+}
+
+// ════ RENDER MORE MENU ════
+function renderMoreMenu() {
+  const g = document.getElementById('moreMenuList');
+  if (!g) return;
+  g.innerHTML = '';
+  MORE_MENU.forEach(item => {
+    g.innerHTML += `<div class="more-item" onclick="openMoreItem('${item.id}')">
+      <span class="mi-ico">${item.ico}</span>
+      <div><div class="mi-title">${item.title}</div><div class="mi-sub">${item.sub}</div></div>
+      <span class="mi-arrow">›</span>
+    </div>`;
+  });
+}
+
+function openMoreItem(id) {
+  showScreen(id);
+  // Lazy render
+  if (id === 'schemes') renderSchemesFull();
+  else if (id === 'pesticides') renderPesticides();
+  else if (id === 'stories') renderStories();
+  else if (id === 'machinery') renderMachinery();
+  else if (id === 'global') renderGlobal();
+  else if (id === 'animal') renderAnimals();
+  else if (id === 'movements') renderMovements();
+  else if (id === 'terms') renderTerms();
+}
+
+// ════ TERMS ════
+function renderTerms() {
+  const g = document.getElementById('termsContent');
+  if (!g || g.innerHTML !== '') return;
+  g.innerHTML = `
+    <div class="alert-red">⚠️ Please read carefully / कृपया ध्यान से पढ़ें</div>
+    <div class="card">
+      <div style="font-family:var(--hindi);font-size:14px;font-weight:700;color:var(--red);margin-bottom:12px;">Disclaimer — Full Terms (14 Sections)</div>
+      <div style="font-family:var(--hindi);font-size:12.5px;color:var(--txt2);line-height:1.85;">
+        <b style="color:var(--txt);display:block;margin-bottom:4px;">1. केवल शैक्षिक उद्देश्य</b>
+        Madhoganj केवल educational और informational platform है। सभी content — crop disease diagnosis, pesticide recommendations, weather advisories, mandi prices, government scheme information — केवल general awareness के लिए है। यह professional agricultural, legal, financial, medical, या veterinary advice नहीं है।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">2. फसल/पशु हानि की ज़िम्मेदारी नहीं</b>
+        Madhoganj, इसके founders, developers, और AAA किसी भी crop loss, livestock loss, financial loss के लिए liable नहीं हैं। हमेशा local agricultural experts, KVK officers, या licensed agronomists से independently verify करें।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">3. कीटनाशक जानकारी</b>
+        Dosage और application data indicative है। Incorrect application से crop damage, human health risks, और environmental harm हो सकता है। हमेशा product label पढ़ें। PHI follow करें। Full PPE पहनें।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">4. मौसम डेटा</b>
+        Weather forecasts Open-Meteo, IMD, GBPUAT से हैं। Indicative only। Hill और terai regions में actual conditions significantly vary कर सकती हैं।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">5. मंडी भाव</b>
+        Mandi prices Agmarknet/eNAM public data से indicative reference values हैं। Quality, variety, moisture, और daily demand के basis पर actual prices vary करते हैं।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">6. सरकारी योजनाएं</b>
+        Scheme eligibility, deadlines, और benefits frequently change होते हैं। Official portals (pmkisan.gov.in, pmfby.gov.in) पर verify करें।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">7. किसान आंदोलन Section</b>
+        Madhoganj का कोई political position नहीं है। यह factual documentation है public awareness के लिए।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">8. Upload / User Content</b>
+        सभी user content AAA (Artigellence Augmentation Aggregator) moderate करता है। Madhoganj user-submitted mandi prices या disease reports की accuracy guarantee नहीं करता।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">9. Multimodal Features (Coming Soon)</b>
+        Voice upload, video diagnosis, WhatsApp integration development में है। Launch पर clearly stated: "AI-assisted — agronomist से confirm करें।"
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">10. Privacy / गोपनीयता</b>
+        Madhoganj personal data collect, store, या sell नहीं करता। Location केवल weather localisation के लिए। Zero data sale policy — permanent।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">11. Payment Terms (Future)</b>
+        7 FREE diagnoses on signup। फिर ₹29/diagnosis या ₹499/month unlimited। Technical error पर 24 hours full refund। BETA period में pricing change हो सकती है।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">12. पशुपालन Content</b>
+        Veterinary information educational awareness के लिए। बीमार पशु के लिए licensed veterinarian से मिलें। Helpline: 1962।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">13. Satellite/Mapping Data</b>
+        NDVI values और field boundary data Sentinel-2, NASA, ISRO, FTW से हैं। Accuracy varies। Legal land disputes के लिए revenue records और district administration consult करें।
+        <b style="color:var(--txt);display:block;margin-top:10px;margin-bottom:4px;">14. Service Limitation</b>
+        Madhoganj free educational service है। Features किसी भी time change, update, या discontinue हो सकते हैं।
+        <br><br>
+        <span style="font-size:10px;color:var(--txt3);">Last Updated: May 2026 · Version 2.0 · madhoganj.cloud · raj@artigellence.com · Part of AAA — Artigellence Augmentation Aggregator</span>
+      </div>
+    </div>`;
+}
+
+// ════ TICKER ════
+function buildTicker() {
+  const items = [
+    ...MANDI_DATA.slice(0, 12).map(m => `<div class="t-item"><b>${m.crop}</b> <span class="${m.dir==='up'?'t-up':'t-dn'}">${m.price.toLocaleString('en-IN')}${m.unit} ${m.dir==='up'?'▲':'▼'}${m.chg}</span></div>`),
+    `<div class="t-item" style="color:var(--gold);">⚠️ Red Rot HIGH: गन्ने में Co-0238 न लगाएं — KVK काशीपुर</div>`,
+    `<div class="t-item" style="color:var(--gold);">🌧 Monsoon: IMD forecast June 20-25 — Western UP/Uttarakhand</div>`,
+    `<div class="t-item">💳 7 FREE diagnoses · फिर ₹29/diagnosis या ₹499/month · wa.me/61452308178</div>`,
+    `<div class="t-item">🏛 PM Fasal Bima deadline: June 30 · 14447</div>`,
+    `<div class="t-item">✊ गन्ना SAP arrears: BKU demanding payment — mills को notice</div>`,
+  ];
+  const doubled = [...items, ...items];
+  document.getElementById('tickerInner').innerHTML = doubled.join('');
+}
+
+// ════ WAITLIST ════
+function openWaitlistWA() {
+  const msg = `नमस्ते! मैं Madhoganj Farm AI में interest रखता/रखती हूं।\n\nMera naam: [apna naam]\nGaon: [apna gaon]\nFasal: [apni mukhya fasal]\n\nPlease mujhe early access dijiye।`;
+  window.open(`https://wa.me/61452308178?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function submitWaitlist() {
+  const name = document.getElementById('wl-name')?.value?.trim();
+  const village = document.getElementById('wl-village')?.value?.trim();
+  const crop = document.getElementById('wl-crop')?.value;
+  const land = document.getElementById('wl-land')?.value?.trim();
+  const msg = `नमस्ते! मैं Madhoganj Farm AI में register करना चाहता/चाहती हूं।\n\nनाम: ${name || '[नहीं दिया]'}\nगाँव: ${village || '[नहीं दिया]'}\nमुख्य फसल: ${crop || '[नहीं चुनी]'}\nज़मीन: ${land || '[नहीं दिया]'}\n\nकृपया early access दें और 3 free diagnoses activate करें।`;
+  window.open(`https://wa.me/61452308178?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function submitWaitlistEmail() {
+  const name = document.getElementById('wl-name')?.value?.trim() || 'Anonymous';
+  const village = document.getElementById('wl-village')?.value?.trim() || 'Not specified';
+  const crop = document.getElementById('wl-crop')?.value || 'Not selected';
+  const subj = `Madhoganj Early Access Registration — ${village}`;
+  const body = `Name: ${name}\nVillage: ${village}\nCrop: ${crop}\n\nPlease register me for early access and activate 3 free diagnoses.`;
+  window.location.href = `mailto:raj@artigellence.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+}
+
+// ════ PHOTO UPLOAD ════
+function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const preview = document.getElementById('photoPreview');
+    const img = document.getElementById('previewImg');
+    if (preview && img) {
+      img.src = e.target.result;
+      preview.style.display = 'block';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function sendToExpert() {
+  const msg = `नमस्ते! मेरी फसल में कुछ problem है। Photo attach करके भेज रहा/रही हूं। Please देखें और advice दें।\n\nFasal: [apni fasal]\nGaon: [apna gaon]\nBimari ke symptoms: [describe करें]`;
+  window.open(`https://wa.me/61452308178?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ════ UPLOAD ════
+function submitUpload() {
+  const type = document.getElementById('up-type')?.value;
+  const name = document.getElementById('up-name')?.value?.trim();
+  const district = document.getElementById('up-district')?.value?.trim();
+  const desc = document.getElementById('up-desc')?.value?.trim();
+  if (!desc) { alert('कृपया description लिखें।'); return; }
+  const subj = `Madhoganj Upload [${type}] - ${district || 'Unknown'}`;
+  const body = `Type: ${type}\nName: ${name || 'Anonymous'}\nDistrict: ${district || 'Not specified'}\n\nDescription:\n${desc}`;
+  window.location.href = `mailto:raj@artigellence.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+}
+
+// ════ FEEDBACK ════
+function openFeedback() {
+  const msg = `नमस्ते! Madhoganj के बारे में मेरा सुझाव:\n\n[अपना सुझाव / सवाल / समस्या लिखें]\n\nनाम: [optional]\nगाँव: [optional]`;
+  window.open(`https://wa.me/61452308178?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ════ INIT ════
+function init() {
+  buildTicker();
+  renderMandi();
+  renderDiseases();
+  renderAdvisory();
+  renderRadar();
+  renderMoreMenu();
+  renderHelpSchemes();
+  buildCitySwitcher();
+  fetchWeather('bazpur');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<!-- Footer -->
+<div style="display:none;" id="footer-info">
+  Madhoganj — Farm ka AI · madhoganj.cloud
+  Part of AAA — Artigellence Augmentation Aggregator
+  Contact: raj@artigellence.com · WhatsApp: +61 452 308 178
+  Educational use only. Not medical/legal/financial advice.
+</div>
+
+</body>
+</html>
