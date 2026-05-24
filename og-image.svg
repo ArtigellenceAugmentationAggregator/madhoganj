@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B5E20"/>
+      <stop offset="60%" style="stop-color:#2E7D32"/>
+      <stop offset="100%" style="stop-color:#388E3C"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.12)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.04)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1050" cy="100" r="200" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="1100" cy="500" r="150" fill="rgba(255,255,255,0.03)"/>
+  <circle cx="100" cy="550" r="180" fill="rgba(255,255,255,0.03)"/>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="8" height="630" fill="#F9A825"/>
+
+  <!-- Logo mark -->
+  <rect x="60" y="60" width="70" height="70" rx="16" fill="rgba(255,255,255,0.15)"/>
+  <text x="95" y="110" font-family="Georgia, serif" font-size="36" fill="white" text-anchor="middle">म</text>
+
+  <!-- Main title -->
+  <text x="155" y="90" font-family="Georgia, serif" font-size="42" fill="white" font-weight="400">Madhoganj</text>
+  <text x="155" y="122" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.6)" letter-spacing="3">FARM KA AI</text>
+
+  <!-- Hindi tagline -->
+  <text x="60" y="210" font-family="Arial, sans-serif" font-size="52" fill="white" font-weight="700">किसान का AI साथी</text>
+  <text x="60" y="272" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.85)">India's free farmer dashboard — हिंदी में</text>
+
+  <!-- Feature pills -->
+  <rect x="60" y="310" width="160" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+  <text x="140" y="338" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">🌤 मौसम</text>
+
+  <rect x="235" y="310" width="180" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+  <text x="325" y="338" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">₹ मंडी भाव</text>
+
+  <rect x="430" y="310" width="200" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+  <text x="530" y="338" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">📷 फसल डॉक्टर</text>
+
+  <rect x="645" y="310" width="220" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+  <text x="755" y="338" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">🗺️ मेरे आस-पास</text>
+
+  <!-- Pricing badge -->
+  <rect x="60" y="380" width="380" height="80" rx="14" fill="rgba(249,168,37,0.2)" stroke="#F9A825" stroke-width="1.5"/>
+  <text x="80" y="415" font-family="Arial, sans-serif" font-size="16" fill="#F9A825" letter-spacing="1">BETA — FREE TO USE</text>
+  <text x="80" y="445" font-family="Arial, sans-serif" font-size="22" fill="white" font-weight="700">7 Free · ₹29/diagnosis · ₹499/month</text>
+
+  <!-- Right side stats -->
+  <rect x="750" y="200" width="390" height="340" rx="20" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+  <text x="945" y="255" font-family="Arial, sans-serif" font-size="15" fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="2">BAZPUR · USN · UTTARAKHAND</text>
+
+  <text x="945" y="310" font-family="Georgia, serif" font-size="44" fill="white" text-anchor="middle" font-weight="700">5 Languages</text>
+  <text x="945" y="345" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.7)" text-anchor="middle">हिंदी · English · ਪੰਜਾਬੀ · हरयाणवी · اردو</text>
+
+  <line x1="790" y1="375" x2="1100" y2="375" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <text x="945" y="415" font-family="Georgia, serif" font-size="44" fill="white" text-anchor="middle" font-weight="700">25 Crops</text>
+  <text x="945" y="450" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.7)" text-anchor="middle">Live mandi prices + MSP/SAP floor</text>
+
+  <line x1="790" y1="475" x2="1100" y2="475" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <text x="945" y="515" font-family="Georgia, serif" font-size="44" fill="white" text-anchor="middle" font-weight="700">No App</text>
+  <text x="945" y="550" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.7)" text-anchor="middle">Works in any phone browser · Offline too</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="590" width="1200" height="40" fill="rgba(0,0,0,0.3)"/>
+  <text x="60" y="616" font-family="Arial, sans-serif" font-size="15" fill="rgba(255,255,255,0.7)">madhoganj.cloud</text>
+  <text x="600" y="616" font-family="Arial, sans-serif" font-size="15" fill="rgba(255,255,255,0.5)" text-anchor="middle">Part of AAA — Artigellence Augmentation Aggregator</text>
+  <text x="1140" y="616" font-family="Arial, sans-serif" font-size="15" fill="rgba(255,255,255,0.7)" text-anchor="end">raj@artigellence.com</text>
+</svg>
